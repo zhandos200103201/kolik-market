@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+    kolik-market-api:
+        container_name: kolik-market-api
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        privileged: true
+        restart: unless-stopped
+        tty: true
+        networks:
+            - kolik-market-network
+        volumes:
+            - ./:/var/www/html/
+
+    webserver:
+        image: nginx:alpine
+        container_name: webserver
+        restart: unless-stopped
+        tty: true
+        ports:
+            - '8000:8000'
+        volumes:
+            - ./:/var/www/html/
+            - ./docker/nginx:/etc/nginx/conf.d/
+        networks:
+            - kolik-market-network
+
+networks:
+    kolik-market-network:
+        driver: bridge
