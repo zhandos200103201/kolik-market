@@ -3,14 +3,53 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+
+/**
+ * @property int $user_id
+ * @property int $role_id
+ * @property string $name
+ * @property string $email
+ * @property string $address
+ * @property Carbon|string|null $email_verified_at
+ * @property int $status
+ * @property string|null $password
+ * @property string|null $password_salt
+ * @property string|null $photo
+ * @property string|null $remember_token
+ * @property Carbon|string|null $created_at
+ * @property Carbon|string|null $update_at
+ * @property-read Role[]|null $roles
+ */
+final class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     * @var bool
+     */
+    public $incrementing = true;
+
+    /**
+     * @var bool
+     */
+    public $timestamps = true;
+
+    /**
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * @var string
+     */
+    protected $primaryKey = 'user_id';
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +60,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'password_salt',
+        'address',
+        'phone_number',
     ];
 
     /**
@@ -41,5 +83,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'status' => 'boolean',
+        'role_id' => 'integer',
     ];
+
+    public function roles(): HasMany
+    {
+        return $this->hasMany(Role::class, 'role_id', 'role_id');
+    }
 }
