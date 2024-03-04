@@ -18,13 +18,13 @@ return new class extends Migration
             $table->unsignedBigInteger('role_id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('address')->unique();
+            $table->string('address')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('password_salt');
+            $table->string('password_salt')->nullable();
             $table->boolean('status');
             $table->string('photo')->nullable();
-            $table->string('phone_number');
+            $table->string('phone_number')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
