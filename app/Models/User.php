@@ -6,9 +6,9 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticate;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
 
 /**
@@ -16,7 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int $role_id
  * @property string $name
  * @property string $email
- * @property string $address
+ * @property string| $address
  * @property Carbon|string|null $email_verified_at
  * @property int $status
  * @property string|null $password
@@ -27,7 +27,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon|string|null $update_at
  * @property-read Role[]|null $roles
  */
-final class User extends Authenticatable
+final class User extends Authenticate
 {
     use HasApiTokens, HasFactory, Notifiable;
 
