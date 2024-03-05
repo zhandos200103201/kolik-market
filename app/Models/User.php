@@ -6,9 +6,9 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticate;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
+use Laravel\Sanctum\HasApiTokens;
 
 
 /**
@@ -16,10 +16,10 @@ use Laravel\Passport\HasApiTokens;
  * @property int $role_id
  * @property string $name
  * @property string $email
- * @property string| $address
+ * @property string|null $address
  * @property Carbon|string|null $email_verified_at
  * @property int $status
- * @property string|null $password
+ * @property string $password
  * @property string|null $password_salt
  * @property string|null $photo
  * @property string|null $remember_token
@@ -27,7 +27,7 @@ use Laravel\Passport\HasApiTokens;
  * @property Carbon|string|null $update_at
  * @property-read Role[]|null $roles
  */
-final class User extends Authenticate
+final class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -42,6 +42,23 @@ final class User extends Authenticate
     public $timestamps = true;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'role_id',
+        'name',
+        'email',
+        'password',
+        'password_salt',
+        'status',
+        'address',
+        'photo',
+        'phone_number',
+    ];
+
+    /**
      * @var string
      */
     protected $table = 'users';
@@ -50,20 +67,6 @@ final class User extends Authenticate
      * @var string
      */
     protected $primaryKey = 'user_id';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'password_salt',
-        'address',
-        'phone_number',
-    ];
 
     /**
      * The attributes that should be hidden for serialization.
