@@ -26,6 +26,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon|string|null $created_at
  * @property Carbon|string|null $update_at
  * @property-read Role[]|null $roles
+ * @property-read Service[]|null $services
  */
 final class User extends Authenticatable
 {
@@ -40,6 +41,16 @@ final class User extends Authenticatable
      * @var bool
      */
     public $timestamps = true;
+
+    /**
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * @var string
+     */
+    protected $primaryKey = 'user_id';
 
     /**
      * The attributes that are mass assignable.
@@ -57,16 +68,6 @@ final class User extends Authenticatable
         'photo',
         'phone_number',
     ];
-
-    /**
-     * @var string
-     */
-    protected $table = 'users';
-
-    /**
-     * @var string
-     */
-    protected $primaryKey = 'user_id';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -93,5 +94,10 @@ final class User extends Authenticatable
     public function roles(): HasMany
     {
         return $this->hasMany(Role::class, 'role_id', 'role_id');
+    }
+
+    public function services(): HasMany
+    {
+        return $this->hasMany(Service::class, 'service_id', 'service_id');
     }
 }

@@ -42,7 +42,7 @@ final class Controller extends BaseController
         ]);
 
         return response()->json([
-            'message' => 'Category is successfully retrieved.',
+            'message' => 'Category is successfully created.',
             'data' => $newCategory
         ]);
     }
@@ -60,7 +60,7 @@ final class Controller extends BaseController
         ]);
 
         return response()->json([
-            'message' => 'Category is successfully retrieved.',
+            'message' => 'Category is successfully updated.',
             'data' => $category
         ]);
     }
@@ -79,7 +79,7 @@ final class Controller extends BaseController
         $category->delete();
 
         return response()->json([
-            'message' => 'Category successfully deleted.',
+            'message' => 'Category is successfully deleted.',
         ]);
     }
 }

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
  * @property int $service_id
  * @property int $category_id
+ * @property int $user_id
  * @property string $name
  * @property string $description
  * @property string $photo
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property Carbon|string|null $created_at
  * @property Carbon|string|null $update_at
  * @property-read Category|null $category
+ * @property-read User|null $user
  */
 class Service extends Model
 {
@@ -69,5 +71,10 @@ class Service extends Model
     public function category(): HasOne
     {
         return $this->hasOne(Category::class, 'category_id', 'category_id');
+    }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, 'user_id', 'user_id');
     }
 }

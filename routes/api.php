@@ -2,19 +2,11 @@
 
 use App\Http\Controllers\Auth\Controller as AuthenticationController;
 use App\Http\Controllers\Category\Controller as CategoryController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Feedback\Controller as FeedbackController;
+use App\Http\Controllers\Generation\Controller as ModelGenerationController;
+use App\Http\Controllers\Manufacturer\Controller as ManufacturerController;
+use App\Http\Controllers\Model\Controller as CarModelController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return response()->json([
@@ -30,11 +22,49 @@ Route::prefix('auth')->group(function ():void {
 Route::prefix('categories')->group(function (): void{
     Route::get('', [CategoryController::class, 'index']);
     Route::get('{category}', [CategoryController::class, 'show']);
+
     Route::middleware('auth:api')->group(function (): void {
         Route::post('', [CategoryController::class, 'create']);
         Route::put('{category}', [CategoryController::class, 'update']);
         Route::delete('{category}', [CategoryController::class, 'delete']);
     });
+});
+
+Route::prefix('manufacturers')->group(function (): void {
+    Route::get('', [ManufacturerController::class, 'index']);
+
+    Route::middleware('auth:api')->group(function (): void {
+        Route::post('', [ManufacturerController::class, 'create']);
+        Route::put('{manufacturer}', [ManufacturerController::class, 'update']);
+        Route::delete('{manufacturer}', [ManufacturerController::class, 'delete']);
+    });
+});
+
+Route::prefix('models')->group(function (): void {
+    Route::get('', [CarModelController::class, 'index']);
+
+    Route::middleware('auth:api')->group(function (): void {
+        Route::post('', [CarModelController::class, 'create']);
+        Route::put('{model}', [CarModelController::class, 'update']);
+        Route::delete('{model}', [CarModelController::class, 'delete']);
+    });
+});
+
+Route::prefix('generations')->group(function (): void {
+    Route::get('', [ModelGenerationController::class, 'index']);
+
+    Route::middleware('auth:api')->group(function (): void {
+        Route::post('', [ModelGenerationController::class, 'create']);
+        Route::put('{generation}', [ModelGenerationController::class, 'update']);
+        Route::delete('{generation}', [ModelGenerationController::class, 'delete']);
+    });
+});
+
+Route::prefix('feedbacks')->group(function (): void {
+    Route::get('', [FeedbackController::class, 'index']);
+    Route::post('', [FeedbackController::class, 'create']);
+//    Route::put('{generation}', [FeedbackController::class, 'update']);
+//    Route::delete('{generation}', [FeedbackController::class, 'delete']);
 });
 
 

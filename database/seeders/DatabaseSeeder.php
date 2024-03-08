@@ -11,7 +11,7 @@ use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+final class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
@@ -50,8 +50,20 @@ class DatabaseSeeder extends Seeder
             'name' => 'Washing the car.'
         ]);
 
+        /** @var Role $role */
+        $role = Role::factory()->create([
+            'title' => 'Admin'
+        ]);
+        /** @var User $serviceUser */
+        $serviceUser = User::factory()->create([
+            'name' => 'Zhandos',
+            'email' => 'zhandos@gmail.com',
+            'role_id' => $role->role_id
+        ]);
+
         Service::factory(2)->create([
-            'category_id' => $serviceCategory->category_id
+            'category_id' => $serviceCategory->category_id,
+            'user_id' => $serviceUser->user_id
         ]);
     }
 }
