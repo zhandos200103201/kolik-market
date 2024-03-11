@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -27,7 +26,7 @@ final class CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'description' => $this->faker->text()
+            'description' => $this->faker->text(),
         ];
     }
 }

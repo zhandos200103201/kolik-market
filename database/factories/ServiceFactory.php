@@ -29,7 +29,7 @@ final class ServiceFactory extends Factory
             'description' => $this->faker->sentence,
             'photo' => $this->faker->image,
             'price' => $this->faker->randomNumber(3),
-            'views' => $this->faker->randomNumber(2)
+            'views' => $this->faker->randomNumber(2),
         ];
     }
 }

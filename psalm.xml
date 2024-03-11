@@ -1,19 +1,39 @@
 <?xml version="1.0"?>
 <psalm
-    errorLevel="7"
-    resolveFromConfigFile="true"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="https://getpsalm.org/schema/config"
-    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
-    findUnusedBaselineEntry="true"
-    findUnusedCode="true"
+phpVersion="8.2"
+errorLevel="4"
+resolveFromConfigFile="true"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="https://getpsalm.org/schema/config"
+xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+findUnusedBaselineEntry="true"
+findUnusedCode="false"
+cacheDirectory="psalm"
 >
-    <projectFiles>
-        <directory name="app" />
-        <directory name="database/factories" />
-        <directory name="database/seeders" />
-        <ignoreFiles>
-            <directory name="vendor" />
-        </ignoreFiles>
-    </projectFiles>
+<projectFiles>
+    <directory name="app" />
+    <directory name="database/factories" />
+    <directory name="database/seeders" />
+    <ignoreFiles>
+        <directory name="vendor" />
+        <directory name="./vendor" />
+    </ignoreFiles>
+</projectFiles>
+<issueHandlers>
+    <MoreSpecificReturnType errorLevel="suppress"/>
+    <LessSpecificReturnStatement errorLevel="suppress"/>
+    <MixedInferredReturnType errorLevel="suppress"/>
+    <MixedReturnStatement errorLevel="suppress"/>
+    <UnresolvableInclude errorLevel="suppress"/>
+    <MixedAssignment errorLevel="suppress"/>
+    <MixedOperand errorLevel="suppress"/>
+    <MixedArgument errorLevel="suppress"/>
+    <MixedMethodCall errorLevel="suppress"/>
+    <MixedArrayAccess errorLevel="suppress"/>
+    <MixedPropertyFetch errorLevel="suppress"/>
+    <PropertyNotSetInConstructor errorLevel="suppress"/>
+    <MixedPropertyAssignment errorLevel="suppress"/>
+    <MissingClosureParamType errorLevel="suppress"/>
+</issueHandlers>
 </psalm>
+

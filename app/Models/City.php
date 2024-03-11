@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-
 /**
  * @property int $city_id
  * @property string $name
@@ -45,7 +44,7 @@ final class City extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     public function users(): HasMany

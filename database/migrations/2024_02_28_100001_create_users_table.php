@@ -22,7 +22,6 @@ return new class extends Migration
             $table->unsignedBigInteger('city_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('password_salt')->nullable();
             $table->boolean('status');
             $table->string('photo')->nullable();
             $table->string('phone_number')->nullable();

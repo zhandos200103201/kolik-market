@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Generation;
 
 use App\Http\Controllers\Controller as BaseController;
-use App\Models\Category;
 use App\Models\ModelGeneration;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +17,7 @@ final class Controller extends BaseController
     {
         return response()->json([
             'message' => 'Generation are successfully retrieved.',
-            'data' => ModelGeneration::all()
+            'data' => ModelGeneration::all(),
         ]);
     }
 
@@ -27,16 +26,16 @@ final class Controller extends BaseController
         /** @var User $user */
         $user = Auth::user();
 
-        if($user->role_id !== 2){
+        if ($user->role_id !== 2) {
             return response()->json([
-                'message' => 'Only admins can change the manufacturer.'
+                'message' => 'Only admins can change the manufacturer.',
             ]);
         }
 
         $data = $request->validate([
             'model_id' => 'required|integer',
             'start_year' => 'required|integer',
-            'end_year' => 'required|integer'
+            'end_year' => 'required|integer',
         ]);
 
         $newGeneration = ModelGeneration::query()->create([
@@ -47,7 +46,7 @@ final class Controller extends BaseController
 
         return response()->json([
             'message' => 'New generation of the model is successfully created.',
-            'data' => $newGeneration
+            'data' => $newGeneration,
         ]);
     }
 
@@ -56,16 +55,16 @@ final class Controller extends BaseController
         /** @var User $user */
         $user = Auth::user();
 
-        if($user->role_id !== 2){
+        if ($user->role_id !== 2) {
             return response()->json([
-                'message' => 'Only admins can change the manufacturer.'
+                'message' => 'Only admins can change the manufacturer.',
             ]);
         }
 
         $data = $request->validate([
             'model_id' => 'required|integer',
             'start_year' => 'required|integer',
-            'end_year' => 'required|integer'
+            'end_year' => 'required|integer',
         ]);
 
         $generation->update([
@@ -76,7 +75,7 @@ final class Controller extends BaseController
 
         return response()->json([
             'message' => 'Generation is successfully updated.',
-            'data' => $generation
+            'data' => $generation,
         ]);
     }
 
@@ -85,9 +84,9 @@ final class Controller extends BaseController
         /** @var User $user */
         $user = Auth::user();
 
-        if($user->role_id !== 2){
+        if ($user->role_id !== 2) {
             return response()->json([
-                'message' => 'Only admins can delete the generation.'
+                'message' => 'Only admins can delete the generation.',
             ]);
         }
 

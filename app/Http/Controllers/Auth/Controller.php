@@ -17,9 +17,9 @@ final class Controller extends BaseController
     public function register(Request $request): JsonResponse
     {
         $data = $request->validate([
-           'name' => 'required|string',
-           'email' => 'required|string',
-           'password' => 'required|string'
+            'name' => 'required|string',
+            'email' => 'required|string',
+            'password' => 'required|string',
         ]);
 
         /** @var Role $role */
@@ -43,9 +43,9 @@ final class Controller extends BaseController
             'password' => 'required|string',
         ]);
 
-        if (! Auth::attempt($data)){
+        if (! Auth::attempt($data)) {
             return response()->json([
-                'message' => 'Unauthorised'
+                'message' => 'Unauthorised.',
             ], 401);
         }
 
@@ -58,8 +58,8 @@ final class Controller extends BaseController
             'data' => [
                 'user' => Auth::user(),
                 'token' => $token,
-                'token_type' => 'Bearer'
-            ]
+                'token_type' => 'Bearer',
+            ],
         ]);
     }
 }

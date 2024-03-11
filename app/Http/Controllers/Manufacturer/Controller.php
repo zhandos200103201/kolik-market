@@ -17,7 +17,7 @@ final class Controller extends BaseController
     {
         return response()->json([
             'message' => 'Categories are successfully retrieved.',
-            'data' => Manufacturer::all()
+            'data' => Manufacturer::all(),
         ]);
     }
 
@@ -26,9 +26,9 @@ final class Controller extends BaseController
         /** @var User $user */
         $user = Auth::user();
 
-        if($user->role_id !== 2){
+        if ($user->role_id !== 2) {
             return response()->json([
-                'message' => 'Only admins can add a new manufacturer.'
+                'message' => 'Only admins can add a new manufacturer.',
             ]);
         }
 
@@ -37,12 +37,12 @@ final class Controller extends BaseController
         ]);
 
         $newManufacturer = Manufacturer::query()->create([
-           'name' => $data['name']
+            'name' => $data['name'],
         ]);
 
         return response()->json([
             'message' => 'Manufacturer is successfully created.',
-            'data' => $newManufacturer
+            'data' => $newManufacturer,
         ]);
     }
 
@@ -51,9 +51,9 @@ final class Controller extends BaseController
         /** @var User $user */
         $user = Auth::user();
 
-        if($user->role_id !== 2){
+        if ($user->role_id !== 2) {
             return response()->json([
-                'message' => 'Only admins can change the manufacturer.'
+                'message' => 'Only admins can change the manufacturer.',
             ]);
         }
         $data = $request->validate([
@@ -66,7 +66,7 @@ final class Controller extends BaseController
 
         return response()->json([
             'message' => 'Manufacturer is successfully updated.',
-            'data' => $manufacturer
+            'data' => $manufacturer,
         ]);
     }
 
@@ -75,9 +75,9 @@ final class Controller extends BaseController
         /** @var User $user */
         $user = Auth::user();
 
-        if($user->role_id !== 2){
+        if ($user->role_id !== 2) {
             return response()->json([
-                'message' => 'Only admins can delete the manufacturer.'
+                'message' => 'Only admins can delete the manufacturer.',
             ]);
         }
 

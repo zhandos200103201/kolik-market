@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\Controller as AuthenticationController;
 use App\Http\Controllers\Category\Controller as CategoryController;
+use App\Http\Controllers\City\Controller as CityController;
 use App\Http\Controllers\Feedback\Controller as FeedbackController;
 use App\Http\Controllers\Generation\Controller as ModelGenerationController;
 use App\Http\Controllers\Manufacturer\Controller as ManufacturerController;
@@ -10,16 +11,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return response()->json([
-        'message' => 'Success.'
+        'message' => 'Success.',
     ]);
 });
 
-Route::prefix('auth')->group(function ():void {
+Route::prefix('auth')->name('auth-')->group(function (): void {
     Route::post('register', [AuthenticationController::class, 'register']);
-    Route::post('login', [AuthenticationController::class, 'login']);
+    Route::post('login', [AuthenticationController::class, 'login'])->name('login');
 });
 
-Route::prefix('categories')->group(function (): void{
+Route::prefix('categories')->group(function (): void {
     Route::get('', [CategoryController::class, 'index']);
     Route::get('{category}', [CategoryController::class, 'show']);
 
@@ -60,12 +61,19 @@ Route::prefix('generations')->group(function (): void {
     });
 });
 
+Route::prefix('cities')->group(function (): void {
+    Route::get('', [CityController::class, 'index']);
+
+    Route::middleware('auth:api')->group(function (): void {
+        Route::post('', [CityController::class, 'create']);
+        Route::put('{city}', [CityController::class, 'update']);
+        Route::delete('{city}', [CityController::class, 'delete']);
+    });
+});
+
 Route::prefix('feedbacks')->group(function (): void {
     Route::get('', [FeedbackController::class, 'index']);
     Route::post('', [FeedbackController::class, 'create']);
-//    Route::put('{generation}', [FeedbackController::class, 'update']);
-//    Route::delete('{generation}', [FeedbackController::class, 'delete']);
+    //    Route::put('{generation}', [FeedbackController::class, 'update']);
+    //    Route::delete('{generation}', [FeedbackController::class, 'delete']);
 });
-
-
-

@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-
+use Laravel\Passport\HasApiTokens;
 
 /**
  * @property int $user_id
@@ -20,7 +19,6 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon|string|null $email_verified_at
  * @property int $status
  * @property string $password
- * @property string|null $password_salt
  * @property string|null $photo
  * @property string|null $remember_token
  * @property Carbon|string|null $created_at
@@ -62,7 +60,6 @@ final class User extends Authenticatable
         'name',
         'email',
         'password',
-        'password_salt',
         'status',
         'address',
         'photo',

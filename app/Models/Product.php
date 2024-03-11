@@ -78,6 +78,7 @@ final class Product extends Model
     {
         return $this->hasOne(Category::class, 'category_id', 'category_id');
     }
+
     public function user(): HasOne
     {
         return $this->hasOne(User::class, 'user_id', 'user_id');

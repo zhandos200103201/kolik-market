@@ -17,7 +17,7 @@ final class Controller extends BaseController
     {
         return response()->json([
             'message' => 'Model of the cars are successfully retrieved.',
-            'data' => CarModel::all()
+            'data' => CarModel::all(),
         ]);
     }
 
@@ -26,15 +26,15 @@ final class Controller extends BaseController
         /** @var User $user */
         $user = Auth::user();
 
-        if($user->role_id !== 2){
+        if ($user->role_id !== 2) {
             return response()->json([
-                'message' => 'Only admins can change the manufacturer.'
+                'message' => 'Only admins can change the manufacturer.',
             ]);
         }
 
         $data = $request->validate([
             'model_name' => 'required|string',
-            'manufacturer_id' => 'required|string'
+            'manufacturer_id' => 'required|string',
         ]);
 
         $newModel = CarModel::query()->create([
@@ -44,7 +44,7 @@ final class Controller extends BaseController
 
         return response()->json([
             'message' => 'New model of car is successfully created.',
-            'data' => $newModel
+            'data' => $newModel,
         ]);
     }
 
@@ -53,15 +53,15 @@ final class Controller extends BaseController
         /** @var User $user */
         $user = Auth::user();
 
-        if($user->role_id !== 2){
+        if ($user->role_id !== 2) {
             return response()->json([
-                'message' => 'Only admins can change the manufacturer.'
+                'message' => 'Only admins can change the manufacturer.',
             ]);
         }
 
         $data = $request->validate([
             'model_name' => 'required|string',
-            'manufacturer_id' => 'required|string'
+            'manufacturer_id' => 'required|string',
         ]);
 
         $model->update([
@@ -71,7 +71,7 @@ final class Controller extends BaseController
 
         return response()->json([
             'message' => 'Model of the car is successfully updated.',
-            'data' => $model
+            'data' => $model,
         ]);
     }
 
@@ -80,9 +80,9 @@ final class Controller extends BaseController
         /** @var User $user */
         $user = Auth::user();
 
-        if($user->role_id !== 2){
+        if ($user->role_id !== 2) {
             return response()->json([
-                'message' => 'Only admins can delete the category.'
+                'message' => 'Only admins can delete the category.',
             ]);
         }
 

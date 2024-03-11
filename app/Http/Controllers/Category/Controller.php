@@ -17,7 +17,7 @@ final class Controller extends BaseController
     {
         return response()->json([
             'message' => 'Categories are successfully retrieved.',
-            'data' => Category::all()
+            'data' => Category::all(),
         ]);
     }
 
@@ -25,7 +25,7 @@ final class Controller extends BaseController
     {
         return response()->json([
             'message' => 'Category is successfully retrieved.',
-            'data' => $category
+            'data' => $category,
         ]);
     }
 
@@ -33,7 +33,7 @@ final class Controller extends BaseController
     {
         $data = $request->validate([
             'name' => 'required|string',
-            'description' => 'required|string'
+            'description' => 'required|string',
         ]);
 
         $newCategory = Category::query()->create([
@@ -43,7 +43,7 @@ final class Controller extends BaseController
 
         return response()->json([
             'message' => 'Category is successfully created.',
-            'data' => $newCategory
+            'data' => $newCategory,
         ]);
     }
 
@@ -51,7 +51,7 @@ final class Controller extends BaseController
     {
         $data = $request->validate([
             'name' => 'required|string',
-            'description' => 'required|string'
+            'description' => 'required|string',
         ]);
 
         $category->update([
@@ -61,7 +61,7 @@ final class Controller extends BaseController
 
         return response()->json([
             'message' => 'Category is successfully updated.',
-            'data' => $category
+            'data' => $category,
         ]);
     }
 
@@ -70,9 +70,9 @@ final class Controller extends BaseController
         /** @var User $user */
         $user = Auth::user();
 
-        if($user->role_id !== 2){
+        if ($user->role_id !== 2) {
             return response()->json([
-                'message' => 'Only admins can delete the category.'
+                'message' => 'Only admins can delete the category.',
             ]);
         }
 

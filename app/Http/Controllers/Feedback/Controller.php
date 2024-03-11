@@ -15,7 +15,7 @@ final class Controller extends BaseController
     {
         return response()->json([
             'message' => 'Feedbacks are successfully retrieved.',
-            'data' => Feedback::all()
+            'data' => Feedback::all(),
         ]);
     }
 
@@ -37,7 +37,7 @@ final class Controller extends BaseController
 
         return response()->json([
             'message' => 'You left a feedback.',
-            'data' => $newFeedback
+            'data' => $newFeedback,
         ]);
     }
 }
