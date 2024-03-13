@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Domains\Auth;
 
+use App\Core\DTO\Auth\IndexDTO;
 use App\Http\Controllers\Controller as BaseController;
 use App\Models\Role;
 use App\Models\User;
+use App\Resource\Auth\LoginResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +35,9 @@ final class Controller extends BaseController
             'status' => true,
         ]);
 
-        return response()->json(['message' => 'User registered.']);
+        return $this->response(
+            'User registered.'
+        );
     }
 
     public function login(Request $request): JsonResponse
@@ -54,12 +58,9 @@ final class Controller extends BaseController
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->accessToken;
 
-        return response()->json([
-            'data' => [
-                'user' => Auth::user(),
-                'token' => $token,
-                'token_type' => 'Bearer',
-            ],
-        ]);
+        return $this->response(
+            'User successfully logged in.',
+            new LoginResource(new IndexDTO($user, $token))
+        );
     }
 }

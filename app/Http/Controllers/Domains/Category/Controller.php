@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Category;
+namespace App\Http\Controllers\Domains\Category;
 
 use App\Http\Controllers\Controller as BaseController;
 use App\Models\Category;

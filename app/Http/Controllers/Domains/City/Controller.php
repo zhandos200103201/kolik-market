@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\City;
+namespace App\Http\Controllers\Domains\City;
 
-use App\Http\Controllers\Controller as BaseController;
 use App\Models\City;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-final class Controller extends BaseController
+final class Controller
+
 {
     public function index(): JsonResponse
     {

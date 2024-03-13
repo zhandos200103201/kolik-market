@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Auth\Controller as AuthenticationController;
-use App\Http\Controllers\Category\Controller as CategoryController;
-use App\Http\Controllers\City\Controller as CityController;
+use App\Http\Controllers\Domains\Auth\Controller as AuthenticationController;
+use App\Http\Controllers\Domains\Category\Controller as CategoryController;
+use App\Http\Controllers\Domains\City\Controller as CityController;
 use App\Http\Controllers\Feedback\Controller as FeedbackController;
 use App\Http\Controllers\Generation\Controller as ModelGenerationController;
 use App\Http\Controllers\Manufacturer\Controller as ManufacturerController;

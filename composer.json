@@ -27,7 +27,10 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Kolik-market\\": "kolik-market/",
+            "Kolik-market\\Domain\\": "kolik-market/Domain/",
+            "Kolik-market\\Support\\": "kolik-market/Support/"
         }
     },
     "autoload-dev": {
