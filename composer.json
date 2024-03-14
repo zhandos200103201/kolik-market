@@ -28,9 +28,9 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Kolik-market\\": "kolik-market/",
-            "Kolik-market\\Domain\\": "kolik-market/Domain/",
-            "Kolik-market\\Support\\": "kolik-market/Support/"
+            "Kolik\\": "app/kolik/",
+            "Kolik\\Domain\\": "app/kolik/Domains/",
+            "Kolik\\Support\\": "app/kolik/Support/"
         }
     },
     "autoload-dev": {

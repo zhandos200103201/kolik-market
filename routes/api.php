@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\Domains\Auth\Controller as AuthenticationController;
-use App\Http\Controllers\Domains\Category\Controller as CategoryController;
-use App\Http\Controllers\Domains\City\Controller as CityController;
-use App\Http\Controllers\Feedback\Controller as FeedbackController;
-use App\Http\Controllers\Generation\Controller as ModelGenerationController;
-use App\Http\Controllers\Manufacturer\Controller as ManufacturerController;
-use App\Http\Controllers\Model\Controller as CarModelController;
+use App\kolik\Domains\Controllers\Auth\Controller as AuthenticationController;
+use App\kolik\Domains\Controllers\Category\Controller as CategoryController;
+use App\kolik\Domains\Controllers\City\Controller as CityController;
+use App\kolik\Domains\Controllers\Feedback\Controller as FeedbackController;
+use App\kolik\Domains\Controllers\Generation\Controller as ModelGenerationController;
+use App\kolik\Domains\Controllers\Manufacturer\Controller as ManufacturerController;
+use App\kolik\Domains\Controllers\Model\Controller as CarModelController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
