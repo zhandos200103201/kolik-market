@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 final class Controller
-
 {
     public function index(): JsonResponse
     {

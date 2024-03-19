@@ -5,10 +5,10 @@ ENVIRONMENT_FILE=$(shell pwd)/.env
 PROJECT_DIRECTORY=$(shell pwd)
 
 build-project: composer-install check-env
-	- docker exec -ti pmstest-api php artisan key:generate
-	- docker exec -ti pmstest-api php artisan passport:install --force
-	- docker exec -ti pmstest-api php artisan optimize:clear
-	- docker exec -ti pmstest-api php artisan optimize
+	- docker exec -ti kolik-market-api php artisan key:generate
+	- docker exec -ti kolik-market-api php artisan passport:install --force
+	- docker exec -ti kolik-market-api php artisan optimize:clear
+	- docker exec -ti kolik-market-api php artisan optimize
 
 composer-install:
 	- docker exec -ti kolik-market-api composer install
