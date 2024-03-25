@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\kolik\Domains\Core\DTO\Auth;
+namespace App\kolik\Domains\Core\DTO\Auth\Login;
 
 use App\Models\User;
 

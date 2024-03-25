@@ -18,13 +18,22 @@ Route::get('/', function () {
 Route::prefix('auth')->name('auth-')->group(function (): void {
     Route::post('register', [AuthenticationController::class, 'register']);
     Route::post('login', [AuthenticationController::class, 'login'])->name('login');
+
+    Route::middleware('auth:sanctum')->group(function (): void {
+        Route::post('logout', [AuthenticationController::class, 'logout'])->name('logout');
+
+        Route::prefix('email')->name('email-')->group(function (): void {
+            Route::post('verify/send', [AuthenticationController::class, 'send'])->name('send');
+            Route::post('verify', [AuthenticationController::class, 'verify'])->name('verify')->middleware('signed');
+        });
+    });
 });
 
 Route::prefix('categories')->group(function (): void {
     Route::get('', [CategoryController::class, 'index']);
     Route::get('{category}', [CategoryController::class, 'show']);
 
-    Route::middleware('auth:api')->group(function (): void {
+    Route::middleware('auth:sanctum')->group(function (): void {
         Route::post('', [CategoryController::class, 'create']);
         Route::put('{category}', [CategoryController::class, 'update']);
         Route::delete('{category}', [CategoryController::class, 'delete']);
@@ -34,7 +43,7 @@ Route::prefix('categories')->group(function (): void {
 Route::prefix('manufacturers')->group(function (): void {
     Route::get('', [ManufacturerController::class, 'index']);
 
-    Route::middleware('auth:api')->group(function (): void {
+    Route::middleware('auth:sanctum')->group(function (): void {
         Route::post('', [ManufacturerController::class, 'create']);
         Route::put('{manufacturer}', [ManufacturerController::class, 'update']);
         Route::delete('{manufacturer}', [ManufacturerController::class, 'delete']);
@@ -44,7 +53,7 @@ Route::prefix('manufacturers')->group(function (): void {
 Route::prefix('models')->group(function (): void {
     Route::get('', [CarModelController::class, 'index']);
 
-    Route::middleware('auth:api')->group(function (): void {
+    Route::middleware('auth:sanctum')->group(function (): void {
         Route::post('', [CarModelController::class, 'create']);
         Route::put('{model}', [CarModelController::class, 'update']);
         Route::delete('{model}', [CarModelController::class, 'delete']);
@@ -54,7 +63,7 @@ Route::prefix('models')->group(function (): void {
 Route::prefix('generations')->group(function (): void {
     Route::get('', [ModelGenerationController::class, 'index']);
 
-    Route::middleware('auth:api')->group(function (): void {
+    Route::middleware('auth:sanctum')->group(function (): void {
         Route::post('', [ModelGenerationController::class, 'create']);
         Route::put('{generation}', [ModelGenerationController::class, 'update']);
         Route::delete('{generation}', [ModelGenerationController::class, 'delete']);
@@ -64,7 +73,7 @@ Route::prefix('generations')->group(function (): void {
 Route::prefix('cities')->group(function (): void {
     Route::get('', [CityController::class, 'index']);
 
-    Route::middleware('auth:api')->group(function (): void {
+    Route::middleware('auth:sanctum')->group(function (): void {
         Route::post('', [CityController::class, 'create']);
         Route::put('{city}', [CityController::class, 'update']);
         Route::delete('{city}', [CityController::class, 'delete']);

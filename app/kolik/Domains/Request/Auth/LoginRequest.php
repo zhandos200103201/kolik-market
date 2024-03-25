@@ -14,7 +14,7 @@ final class LoginRequest extends FormRequest
     {
         return [
             'email' => ['required', 'string',  new Exists(User::class, 'email')],
-            'password' => ['required', 'string'],
+            'password' => ['required', 'string', 'min:8'],
         ];
     }
 }

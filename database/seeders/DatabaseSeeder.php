@@ -50,7 +50,7 @@ final class DatabaseSeeder extends Seeder
         /** @var User $serviceUser */
         $serviceUser = User::factory()->create([
             'name' => 'Zhandos',
-            'email' => 'zhandos@gmail.com',
+            'email' => '200103201@stu.sdu.edu.kz',
             'password' => 'zhandos03',
             'role_id' => $role->role_id,
         ]);

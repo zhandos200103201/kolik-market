@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-use App\kolik\Support\Core\Exceptions\ExceptionParser;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
 
 final class Handler extends ExceptionHandler
 {
