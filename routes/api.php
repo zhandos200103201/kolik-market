@@ -27,6 +27,11 @@ Route::prefix('auth')->name('auth-')->group(function (): void {
             Route::post('verify', [AuthenticationController::class, 'verify'])->name('verify')->middleware('signed');
         });
     });
+
+    Route::prefix('password')->name('password-')->group(function (): void {
+        Route::post('email', [AuthenticationController::class, 'email'])->name('email');
+        Route::post('reset', [AuthenticationController::class, 'reset'])->name('reset');
+    });
 });
 
 Route::prefix('categories')->group(function (): void {
