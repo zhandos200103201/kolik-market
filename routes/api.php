@@ -7,6 +7,8 @@ use App\kolik\Domains\Controllers\Feedback\Controller as FeedbackController;
 use App\kolik\Domains\Controllers\Generation\Controller as ModelGenerationController;
 use App\kolik\Domains\Controllers\Manufacturer\Controller as ManufacturerController;
 use App\kolik\Domains\Controllers\Model\Controller as CarModelController;
+use App\kolik\Domains\Controllers\Profile\Setting\Info\Controller as ProfileInfoController;
+use App\kolik\Domains\Controllers\Profile\Setting\Password\Controller as ProfilePasswordController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,11 +28,6 @@ Route::prefix('auth')->name('auth-')->group(function (): void {
             Route::post('verify/send', [AuthenticationController::class, 'send'])->name('send');
             Route::post('verify', [AuthenticationController::class, 'verify'])->name('verify')->middleware('signed');
         });
-    });
-
-    Route::prefix('password')->name('password-')->group(function (): void {
-        Route::post('email', [AuthenticationController::class, 'email'])->name('email');
-        Route::post('reset', [AuthenticationController::class, 'reset'])->name('reset');
     });
 });
 
@@ -90,4 +87,20 @@ Route::prefix('feedbacks')->group(function (): void {
     Route::post('', [FeedbackController::class, 'create']);
     //    Route::put('{generation}', [FeedbackController::class, 'update']);
     //    Route::delete('{generation}', [FeedbackController::class, 'delete']);
+});
+
+Route::middleware('auth:sanctum')->group(function (): void {
+    Route::prefix('profiles')->name('profile-')->group(function (): void {
+        Route::prefix('settings')->name('setting-')->group(function (): void {
+            Route::prefix('info')->name('info-')->group(function (): void {
+                Route::get('', [ProfileInfoController::class, 'index'])->name('index');
+                Route::put('', [ProfileInfoController::class, 'update'])->name('update');
+            });
+
+            Route::prefix('password')->name('password-')->group(function (): void {
+                Route::post('email', [ProfilePasswordController::class, 'email'])->name('email');
+                Route::post('reset', [ProfilePasswordController::class, 'reset'])->name('reset');
+            });
+        });
+    });
 });

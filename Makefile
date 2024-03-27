@@ -6,7 +6,6 @@ PROJECT_DIRECTORY=$(shell pwd)
 
 build-project: composer-install check-env
 	- docker exec -ti kolik-market-api php artisan key:generate
-	- docker exec -ti kolik-market-api php artisan passport:install --force
 	- docker exec -ti kolik-market-api php artisan optimize:clear
 	- docker exec -ti kolik-market-api php artisan optimize
 
@@ -29,7 +28,7 @@ swagger:
 	- docker exec -ti kolik-market-api php artisan l5-swagger:generate
 
 psalm:
-	- docker exec -ti kolik-market-api vendor/bin/psalm
+	- docker exec -ti kolik-market-api vendor/bin/psalm --no-cache
 
 check-env:
 ifeq (,$(wildcard ./.env))
