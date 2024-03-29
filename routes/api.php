@@ -7,6 +7,7 @@ use App\kolik\Domains\Controllers\Feedback\Controller as FeedbackController;
 use App\kolik\Domains\Controllers\Generation\Controller as ModelGenerationController;
 use App\kolik\Domains\Controllers\Manufacturer\Controller as ManufacturerController;
 use App\kolik\Domains\Controllers\Model\Controller as CarModelController;
+use App\kolik\Domains\Controllers\Profile\Product\Controller as ProfileProductController;
 use App\kolik\Domains\Controllers\Profile\Setting\Info\Controller as ProfileInfoController;
 use App\kolik\Domains\Controllers\Profile\Setting\Password\Controller as ProfilePasswordController;
 use Illuminate\Support\Facades\Route;
@@ -101,6 +102,13 @@ Route::middleware('auth:sanctum')->group(function (): void {
                 Route::post('email', [ProfilePasswordController::class, 'email'])->name('email');
                 Route::post('reset', [ProfilePasswordController::class, 'reset'])->name('reset');
             });
+        });
+
+        Route::prefix('products')->name('product-')->group(function (): void {
+            Route::get('', [ProfileProductController::class, 'index'])->name('index');
+            Route::post('', [ProfileProductController::class, 'create'])->name('create');
+            Route::put('{product}', [ProfileProductController::class, 'update'])->name('update');
+            Route::delete('{product}', [ProfileProductController::class, 'delete'])->name('delete');
         });
     });
 });

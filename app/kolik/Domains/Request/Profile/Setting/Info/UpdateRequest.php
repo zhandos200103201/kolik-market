@@ -6,6 +6,8 @@ namespace App\kolik\Domains\Request\Profile\Setting\Info;
 
 use App\Http\Requests\Request as FormRequest;
 use App\kolik\Domains\Core\DTO\Profile\Setting\Info\UpdateDTO;
+use App\Models\User;
+use Illuminate\Validation\Rule;
 
 /**
  * @OA\Schema(
@@ -41,7 +43,7 @@ final class UpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'email' => ['required', 'email'],
-            'address' => ['required', 'string'],
+            'address' => ['required', 'string', Rule::unique(User::class, 'email')],
             'photo' => ['required', 'string'],
         ];
     }

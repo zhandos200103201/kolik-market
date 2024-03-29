@@ -15,9 +15,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $description
  * @property string $photo
  * @property int $price
- * @property int $count
+ * @property int|null $count
  * @property bool $is_used
  * @property int $views
+ * @property float $score
  * @property Carbon|string|null $created_at
  * @property Carbon|string|null $update_at
  * @property-read Category|null $category
@@ -59,7 +60,8 @@ final class Product extends Model
         'price',
         'count',
         'is_used',
-        'views',
+        'category_id',
+        'user_id',
     ];
 
     /**
@@ -67,7 +69,7 @@ final class Product extends Model
      */
     protected $casts = [
         'user_id' => 'integer',
-        'category' => 'integer',
+        'category_id' => 'integer',
         'price' => 'integer',
         'count' => 'integer',
         'is_used' => 'boolean',

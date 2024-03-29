@@ -12,6 +12,21 @@ use Illuminate\Support\Facades\Auth;
 
 final class Controller
 {
+    /**
+     * @OA\Get(
+     *     summary="User all cities.",
+     *     path="/cities",
+     *     operationId="citites-index",
+     *     tags={"citites"},
+     *     description="",
+     *     parameters={},
+     *
+     *     @OA\Response(
+     *          response=200,
+     *          description="Email is successfully verified.",
+     *     )
+     * )
+     */
     public function index(): JsonResponse
     {
         return response()->json([
@@ -20,6 +35,21 @@ final class Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     summary="User all cities.",
+     *     path="/cities",
+     *     operationId="citites-update",
+     *     tags={"citites"},
+     *     description="",
+     *     parameters={},
+     *
+     *     @OA\Response(
+     *          response=200,
+     *          description="New city is successfully created.",
+     *     )
+     * )
+     */
     public function create(Request $request): JsonResponse
     {
         /** @var User $user */

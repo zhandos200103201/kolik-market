@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('description');
             $table->string('photo');
             $table->integer('price');
-            $table->integer('count');
+            $table->integer('count')->nullable();
             $table->boolean('is_used');
-            $table->integer('views');
+            $table->integer('views')->nullable();
+            $table->integer('score')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('users');
