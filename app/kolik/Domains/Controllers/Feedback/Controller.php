@@ -6,6 +6,7 @@ namespace App\kolik\Domains\Controllers\Feedback;
 
 use App\Http\Controllers\Controller as BaseController;
 use App\kolik\Domains\Request\Feedback\CreateRequest;
+use App\kolik\Domains\Resource\Feedback\IndexResource;
 use App\Models\Feedback;
 use Illuminate\Http\JsonResponse;
 
@@ -24,7 +25,7 @@ final class Controller extends BaseController
      *          response=200,
      *          description="Feedbacks are successfully retrieved.",
      *
-     *          @OA\JsonContent(ref="#/components/schemas/ProfileProductIndexResource"),
+     *          @OA\JsonContent(ref="#/components/schemas/FeedbackIndexResource"),
      *     )
      * )
      */
@@ -32,7 +33,7 @@ final class Controller extends BaseController
     {
         return response()->json([
             'message' => 'Feedbacks are successfully retrieved.',
-            'data' => Feedback::all(),
+            IndexResource::collection(Feedback::all()),
         ]);
     }
 
@@ -66,7 +67,7 @@ final class Controller extends BaseController
 
         return response()->json([
             'message' => 'You left a feedback.',
-            'data' => $newFeedback,
+            new IndexResource($newFeedback),
         ]);
     }
 }
