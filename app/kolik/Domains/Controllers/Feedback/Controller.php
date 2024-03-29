@@ -49,6 +49,8 @@ final class Controller extends BaseController
      *     @OA\Response(
      *          response=200,
      *          description="You left a feedback.",
+     *
+     *          @OA\JsonContent(ref="#/components/schemas/FeedbackIndexResource"),
      *     )
      * )
      */
