@@ -17,9 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name');
             $table->string('description');
-            $table->string('photo');
-            $table->integer('price');
-            $table->integer('views');
+            $table->string('photo')->nullable();
+            $table->integer('price')->nullable();
+            $table->integer('views')->nullable();
             $table->timestamps();
 
             $table->foreign('category_id')->references('category_id')->on('categories');

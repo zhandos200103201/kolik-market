@@ -5,40 +5,77 @@ declare(strict_types=1);
 namespace App\kolik\Domains\Controllers\Category;
 
 use App\Http\Controllers\Controller as BaseController;
+use App\kolik\Domains\Request\Category\ManageRequest;
+use App\kolik\Domains\Resource\Category\IndexResource;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 final class Controller extends BaseController
 {
+    /**
+     * @OA\Get(
+     *     summary="Get product categories",
+     *     path="/categories/",
+     *     operationId="category-index",
+     *     tags={"category"},
+     *     description="Get all product categories",
+     *     parameters={
+     *       {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *     },
+     *
+     *     @OA\Response(
+     *           response=200,
+     *           description="Categories are successfully retrieved.",
+     *
+     *           @OA\JsonContent(ref="#/components/schemas/CategoryIndexResource"),
+     *      )
+     * )
+     */
     public function index(): JsonResponse
     {
         return response()->json([
             'message' => 'Categories are successfully retrieved.',
-            'data' => Category::all(),
+            IndexResource::collection(Category::all()),
         ]);
     }
 
-    public function show(Category $category): JsonResponse
+    /**
+     * @OA\Post(
+     *     summary="Create a new product category",
+     *     path="/categories",
+     *     operationId="category-create",
+     *     tags={"category"},
+     *     description="Create a new product category",
+     *     parameters={
+     *       {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *       {"name": "name", "in":"header", "type":"string", "required":true, "description":"Name of category"},
+     *       {"name": "description", "in":"header", "type":"string", "required":true, "description":"Description of category"},
+     *     },
+     *
+     *     @OA\RequestBody(
+     *
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *
+     *              @OA\Schema(ref="#/components/schemas/CategoryManageRequest")
+     *          )
+     *      ),
+     *
+     *     @OA\Response(
+     *          response=200,
+     *          description="Category is successfully created.",
+     *     )
+     * )
+     */
+    public function create(ManageRequest $request): JsonResponse
     {
-        return response()->json([
-            'message' => 'Category is successfully retrieved.',
-            'data' => $category,
-        ]);
-    }
-
-    public function create(Request $request): JsonResponse
-    {
-        $data = $request->validate([
-            'name' => 'required|string',
-            'description' => 'required|string',
-        ]);
+        $dto = $request->getDto();
 
         $newCategory = Category::query()->create([
-            'name' => $data['name'],
-            'description' => $data['description'],
+            'name' => $dto->name,
+            'description' => $dto->description,
         ]);
 
         return response()->json([
@@ -47,16 +84,41 @@ final class Controller extends BaseController
         ]);
     }
 
-    public function update(Category $category, Request $request): JsonResponse
+    /**
+     * @OA\Put(
+     *     summary="Updaet the model generation",
+     *     path="/categories",
+     *     operationId="category-update",
+     *     tags={"category"},
+     *     description="Update the category",
+     *     parameters={
+     *       {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *       {"name": "name", "in":"header", "type":"string", "required":true, "description":"Name of category"},
+     *       {"name": "description", "in":"header", "type":"string", "required":true, "description":"Description of category"},
+     *     },
+     *
+     *     @OA\RequestBody(
+     *
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *
+     *              @OA\Schema(ref="#/components/schemas/CategoryManageRequest")
+     *          )
+     *      ),
+     *
+     *     @OA\Response(
+     *          response=200,
+     *          description="Category is successfully updated.",
+     *     )
+     * )
+     */
+    public function update(Category $category, ManageRequest $request): JsonResponse
     {
-        $data = $request->validate([
-            'name' => 'required|string',
-            'description' => 'required|string',
-        ]);
+        $dto = $request->getDto();
 
         $category->update([
-            'name' => $data['name'],
-            'description' => $data['description'],
+            'name' => $dto->name,
+            'description' => $dto->description,
         ]);
 
         return response()->json([
@@ -65,6 +127,24 @@ final class Controller extends BaseController
         ]);
     }
 
+    /**
+     * @OA\Delete(
+     *     summary="Delete the product category",
+     *     path="/categories",
+     *     operationId="category-delete",
+     *     tags={"category"},
+     *     description="Delete a product category",
+     *     parameters={
+     *       {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *       {"name": "category", "in":"header", "type":"integer", "required":true, "description":"ID of category"},
+     *     },
+     *
+     *     @OA\Response(
+     *          response=200,
+     *          description="Category is successfully deleted.",
+     *     )
+     * )
+     */
     public function delete(Category $category): JsonResponse
     {
         /** @var User $user */

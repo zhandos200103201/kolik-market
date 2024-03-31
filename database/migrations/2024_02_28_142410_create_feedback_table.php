@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id')->nullable();
             $table->unsignedBigInteger('service_id')->nullable();
             $table->string('content');
-            $table->float('score');
+            $table->float('score')->nullable();
             $table->timestamps();
 
             $table->foreign('product_id')->references('product_id')->on('products');

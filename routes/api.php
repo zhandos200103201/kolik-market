@@ -32,63 +32,6 @@ Route::prefix('auth')->name('auth-')->group(function (): void {
     });
 });
 
-Route::prefix('categories')->group(function (): void {
-    Route::get('', [CategoryController::class, 'index']);
-    Route::get('{category}', [CategoryController::class, 'show']);
-
-    Route::middleware('auth:sanctum')->group(function (): void {
-        Route::post('', [CategoryController::class, 'create']);
-        Route::put('{category}', [CategoryController::class, 'update']);
-        Route::delete('{category}', [CategoryController::class, 'delete']);
-    });
-});
-
-Route::prefix('manufacturers')->group(function (): void {
-    Route::get('', [ManufacturerController::class, 'index']);
-
-    Route::middleware('auth:sanctum')->group(function (): void {
-        Route::post('', [ManufacturerController::class, 'create']);
-        Route::put('{manufacturer}', [ManufacturerController::class, 'update']);
-        Route::delete('{manufacturer}', [ManufacturerController::class, 'delete']);
-    });
-});
-
-Route::prefix('models')->group(function (): void {
-    Route::get('', [CarModelController::class, 'index']);
-
-    Route::middleware('auth:sanctum')->group(function (): void {
-        Route::post('', [CarModelController::class, 'create']);
-        Route::put('{model}', [CarModelController::class, 'update']);
-        Route::delete('{model}', [CarModelController::class, 'delete']);
-    });
-});
-
-Route::prefix('generations')->group(function (): void {
-    Route::get('', [ModelGenerationController::class, 'index']);
-
-    Route::middleware('auth:sanctum')->group(function (): void {
-        Route::post('', [ModelGenerationController::class, 'create']);
-        Route::put('{generation}', [ModelGenerationController::class, 'update']);
-        Route::delete('{generation}', [ModelGenerationController::class, 'delete']);
-    });
-});
-
-Route::prefix('cities')->group(function (): void {
-    Route::get('', [CityController::class, 'index']);
-
-    Route::middleware('auth:sanctum')->group(function (): void {
-        Route::post('', [CityController::class, 'create']);
-        Route::put('{city}', [CityController::class, 'update']);
-        Route::delete('{city}', [CityController::class, 'delete']);
-    });
-});
-
-Route::prefix('feedbacks')->group(function (): void {
-    Route::get('', [FeedbackController::class, 'index']);
-    Route::post('', [FeedbackController::class, 'create']);
-    //    Route::put('{generation}', [FeedbackController::class, 'update']);
-    //    Route::delete('{generation}', [FeedbackController::class, 'delete']);
-});
 
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::prefix('profiles')->name('profile-')->group(function (): void {
@@ -111,4 +54,47 @@ Route::middleware('auth:sanctum')->group(function (): void {
             Route::delete('{product}', [ProfileProductController::class, 'delete'])->name('delete');
         });
     });
+
+    Route::prefix('categories')->name('category-')->group(function (): void {
+        Route::get('', [CategoryController::class, 'index'])->name('index');
+        Route::post('', [CategoryController::class, 'create'])->name('create');
+        Route::put('{category}', [CategoryController::class, 'update'])->name('update');
+        Route::delete('{category}', [CategoryController::class, 'delete'])->name('delete');
+    });
+
+    Route::prefix('cities')->group(function (): void {
+        Route::get('', [CityController::class, 'index']);
+        Route::post('', [CityController::class, 'create']);
+        Route::put('{city}', [CityController::class, 'update']);
+        Route::delete('{city}', [CityController::class, 'delete']);
+    });
+
+    Route::prefix('manufacturers')->group(function (): void {
+        Route::get('', [ManufacturerController::class, 'index']);
+
+        Route::middleware('auth:sanctum')->group(function (): void {
+            Route::post('', [ManufacturerController::class, 'create']);
+            Route::put('{manufacturer}', [ManufacturerController::class, 'update']);
+            Route::delete('{manufacturer}', [ManufacturerController::class, 'delete']);
+        });
+    });
+
+    Route::prefix('models')->group(function (): void {
+        Route::get('', [CarModelController::class, 'index']);
+        Route::post('', [CarModelController::class, 'create']);
+        Route::put('{model}', [CarModelController::class, 'update']);
+        Route::delete('{model}', [CarModelController::class, 'delete']);
+    });
+
+    Route::prefix('generations')->group(function (): void {
+        Route::get('', [ModelGenerationController::class, 'index']);
+        Route::post('', [ModelGenerationController::class, 'create']);
+        Route::put('{generation}', [ModelGenerationController::class, 'update']);
+        Route::delete('{generation}', [ModelGenerationController::class, 'delete']);
+    });
+});
+
+Route::prefix('feedbacks')->group(function (): void {
+    Route::get('', [FeedbackController::class, 'index']);
+    Route::post('', [FeedbackController::class, 'create']);
 });

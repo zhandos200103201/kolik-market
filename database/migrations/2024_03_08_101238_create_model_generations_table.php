@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('model_generations', function (Blueprint $table) {
             $table->id('generation_id');
             $table->unsignedBigInteger('model_id');
-            $table->string('start_year');
-            $table->string('end_year');
+            $table->string('start_year')->nullable();
+            $table->string('end_year')->nullable();
             $table->timestamps();
 
             $table->foreign('model_id')->references('model_id')->on('car_models');
