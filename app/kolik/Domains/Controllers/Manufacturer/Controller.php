@@ -5,23 +5,72 @@ declare(strict_types=1);
 namespace App\kolik\Domains\Controllers\Manufacturer;
 
 use App\Http\Controllers\Controller as BaseController;
+use App\kolik\Domains\Request\Manufacturer\ManageRequest;
+use App\kolik\Domains\Resource\Manufacturer\IndexResource;
 use App\Models\Manufacturer;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 final class Controller extends BaseController
 {
+    /**
+     * @OA\Get(
+     *     summary="Get all manufactures.",
+     *     path="/manufacturers",
+     *     operationId="manufacturer-index",
+     *     tags={"manufacturer"},
+     *     description="Manufacturer like: Toyota, Mercedes",
+     *     parameters={
+     *      {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *     },
+     *
+     *     @OA\Response(
+     *          response=200,
+     *          description="Manufacturers are successfully retrieved.",
+     *
+     *          @OA\JsonContent(ref="#/components/schemas/ManufacturerIndexResource"),
+     *     )
+     * )
+     */
     public function index(): JsonResponse
     {
-        return response()->json([
-            'message' => 'Categories are successfully retrieved.',
-            'data' => Manufacturer::all(),
-        ]);
+        return $this->response(
+            'Manufacturers are successfully retrieved.',
+            IndexResource::collection(Manufacturer::all())
+        );
     }
 
-    public function create(Request $request): JsonResponse
+    /**
+     * @OA\Post(
+     *     summary="Create a new manufacturer.",
+     *     path="/manufacturers",
+     *     operationId="manufacturer-create",
+     *     tags={"manufacturer"},
+     *     description="Create a new manufacturer",
+     *     parameters={
+     *      {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *      {"name": "name", "in":"header", "type":"string", "required":true, "description":"Manufacturer Name"},
+     *     },
+     *
+     *     @OA\RequestBody(
+     *
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *
+     *              @OA\Schema(ref="#/components/schemas/ManufacturerManageRequest")
+     *          )
+     *      ),
+     *
+     *     @OA\Response(
+     *          response=200,
+     *          description="Manufacturer is successfully created.",
+     *
+     *          @OA\JsonContent(ref="#/components/schemas/ManufacturerIndexResource"),
+     *     )
+     * )
+     */
+    public function create(ManageRequest $request): JsonResponse
     {
         /** @var User $user */
         $user = Auth::user();
@@ -32,21 +81,46 @@ final class Controller extends BaseController
             ]);
         }
 
-        $data = $request->validate([
-            'name' => 'required|string',
-        ]);
-
         $newManufacturer = Manufacturer::query()->create([
-            'name' => $data['name'],
+            'name' => $request->getName(),
         ]);
 
-        return response()->json([
-            'message' => 'Manufacturer is successfully created.',
-            'data' => $newManufacturer,
-        ]);
+        return $this->response(
+            'Manufacturer is successfully created.',
+            new IndexResource($newManufacturer)
+        );
     }
 
-    public function update(Manufacturer $manufacturer, Request $request): JsonResponse
+    /**
+     * @OA\Put (
+     *     summary="Update the manufacturer.",
+     *     path="/manufacturers",
+     *     operationId="manufacturer-update",
+     *     tags={"manufacturer"},
+     *     description="Update manufacturer name.",
+     *     parameters={
+     *      {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *      {"name": "name", "in":"header", "type":"string", "required":true, "description":"Manufacturer name"},
+     *     },
+     *
+     *     @OA\RequestBody(
+     *
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *
+     *             @OA\Schema(ref="#/components/schemas/ManufacturerManageRequest")
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *          response=200,
+     *          description="Manufacturer is successfully updated.",
+     *
+     *          @OA\JsonContent(ref="#/components/schemas/ManufacturerIndexResource"),
+     *     )
+     * )
+     */
+    public function update(Manufacturer $manufacturer, ManageRequest $request): JsonResponse
     {
         /** @var User $user */
         $user = Auth::user();
@@ -56,20 +130,35 @@ final class Controller extends BaseController
                 'message' => 'Only admins can change the manufacturer.',
             ]);
         }
-        $data = $request->validate([
-            'name' => 'required|string',
-        ]);
 
         $manufacturer->update([
-            'name' => $data['name'],
+            'name' => $request->getName(),
         ]);
 
-        return response()->json([
-            'message' => 'Manufacturer is successfully updated.',
-            'data' => $manufacturer,
-        ]);
+        return $this->response(
+            'Manufacturer is successfully updated.',
+            new IndexResource($manufacturer)
+        );
     }
 
+    /**
+     * @OA\Delete(
+     *     summary="Delete the manufacturer.",
+     *     path="/manufacturers",
+     *     operationId="manufacturer-delete",
+     *     tags={"manufacturer"},
+     *     description="Delete the manufacturer.",
+     *     parameters={
+     *       {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *       {"name": "city", "in":"header", "type":"integer", "required":true, "description":"ID of city"},
+     *     },
+     *
+     *     @OA\Response(
+     *          response=200,
+     *          description="Manufacturer is successfully deleted.",
+     *     )
+     * )
+     */
     public function delete(Manufacturer $manufacturer): JsonResponse
     {
         /** @var User $user */
@@ -83,8 +172,6 @@ final class Controller extends BaseController
 
         $manufacturer->delete();
 
-        return response()->json([
-            'message' => 'Manufacturer is successfully deleted.',
-        ]);
+        return $this->response('Manufacturer is successfully deleted.');
     }
 }

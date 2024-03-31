@@ -6,6 +6,7 @@ namespace App\kolik\Domains\Controllers\Generation;
 
 use App\Http\Controllers\Controller as BaseController;
 use App\kolik\Domains\Request\Generation\ManageRequest;
+use App\kolik\Domains\Resource\Generation\IndexResource;
 use App\Models\ModelGeneration;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -20,20 +21,24 @@ final class Controller extends BaseController
      *     operationId="generation-index",
      *     tags={"generation"},
      *     description="Get car model generations",
-     *     parameters={},
+     *     parameters={
+     *       {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *      },
      *
      *     @OA\Response(
      *          response=200,
      *          description="Model generations are successfully retrieved.",
+     *
+     *          @OA\JsonContent(ref="#/components/schemas/ModelGenerationIndexResource"),
      *     ),
      * )
      */
     public function index(): JsonResponse
     {
-        return response()->json([
-            'message' => 'Model generations are successfully retrieved.',
-            'data' => ModelGeneration::all(),
-        ]);
+        return $this->response(
+            'Model generations are successfully retrieved.',
+            IndexResource::collection(ModelGeneration::all())
+        );
     }
 
     /**
@@ -59,6 +64,8 @@ final class Controller extends BaseController
      *     @OA\Response(
      *          response=200,
      *          description="New generation of the model is successfully created.",
+     *
+     *          @OA\JsonContent(ref="#/components/schemas/ModelGenerationIndexResource"),
      *     )
      * )
      */
@@ -81,10 +88,10 @@ final class Controller extends BaseController
             'end_year' => $dto->endYear,
         ]);
 
-        return response()->json([
-            'message' => 'New generation of the model is successfully created.',
-            'data' => $newGeneration,
-        ]);
+        return $this->response(
+            'New generation of the model is successfully created.',
+            new IndexResource($newGeneration)
+        );
     }
 
     /**
@@ -94,7 +101,9 @@ final class Controller extends BaseController
      *     operationId="generation-update",
      *     tags={"generation"},
      *     description="Update a model generation",
-     *     parameters={},
+     *     parameters={
+     *       {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *     },
      *
      *     @OA\RequestBody(
      *
@@ -107,7 +116,9 @@ final class Controller extends BaseController
      *
      *     @OA\Response(
      *          response=200,
-     *          description="New generation of the model is successfully created.",
+     *          description="The generation of the model is successfully updated.",
+     *
+     *          @OA\JsonContent(ref="#/components/schemas/ModelGenerationIndexResource"),
      *     )
      * )
      */
@@ -130,10 +141,10 @@ final class Controller extends BaseController
             'end_year' => $dto->endYear,
         ]);
 
-        return response()->json([
-            'message' => 'Generation is successfully updated.',
-            'data' => $generation,
-        ]);
+        return $this->response(
+            'The generation of the model is successfully updated.',
+            new IndexResource($generation)
+        );
     }
 
     /**
@@ -143,7 +154,9 @@ final class Controller extends BaseController
      *     operationId="generation-delete",
      *     tags={"generation"},
      *     description="Delete a model generation",
-     *     parameters={},
+     *     parameters={
+     *       {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *     },
      *
      *     @OA\Response(
      *          response=200,
@@ -164,8 +177,6 @@ final class Controller extends BaseController
 
         $generation->delete();
 
-        return response()->json([
-            'message' => 'Generation is successfully deleted.',
-        ]);
+        return $this->response('Generation is successfully deleted.');
     }
 }

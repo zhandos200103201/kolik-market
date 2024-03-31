@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * @property int generation_id
- * @property int|null model_id
+ * @property int $generation_id
+ * @property int|null $model_id
  * @property string $start_year
  * @property string $end_year
  * @property Carbon|string|null $created_at

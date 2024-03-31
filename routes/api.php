@@ -32,7 +32,6 @@ Route::prefix('auth')->name('auth-')->group(function (): void {
     });
 });
 
-
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::prefix('profiles')->name('profile-')->group(function (): void {
         Route::prefix('settings')->name('setting-')->group(function (): void {

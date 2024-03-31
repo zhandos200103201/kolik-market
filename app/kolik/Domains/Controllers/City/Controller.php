@@ -18,8 +18,8 @@ final class Controller extends BaseController
      * @OA\Get(
      *     summary="Get all cities.",
      *     path="/cities",
-     *     operationId="cities-index",
-     *     tags={"cities"},
+     *     operationId="city-index",
+     *     tags={"city"},
      *     description="Kazakhstan cities",
      *     parameters={
      *      {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
@@ -45,8 +45,8 @@ final class Controller extends BaseController
      * @OA\Post(
      *     summary="Create a new city.",
      *     path="/cities",
-     *     operationId="cities-create",
-     *     tags={"cities"},
+     *     operationId="city-create",
+     *     tags={"city"},
      *     description="Create a new city",
      *     parameters={
      *      {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
