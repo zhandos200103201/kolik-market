@@ -17,7 +17,7 @@ final class Controller extends BaseController
     /**
      * @OA\Get(
      *     summary="Get product categories",
-     *     path="/categories/",
+     *     path="/categories",
      *     operationId="category-index",
      *     tags={"category"},
      *     description="Get all product categories",
@@ -93,8 +93,7 @@ final class Controller extends BaseController
      *     description="Update the category",
      *     parameters={
      *       {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
-     *       {"name": "name", "in":"header", "type":"string", "required":true, "description":"Name of category"},
-     *       {"name": "description", "in":"header", "type":"string", "required":true, "description":"Description of category"},
+     *       {"name": "category", "in":"header", "type":"integer", "required":true, "description":"Id of category"},
      *     },
      *
      *     @OA\RequestBody(
@@ -151,9 +150,7 @@ final class Controller extends BaseController
         $user = Auth::user();
 
         if ($user->role_id !== 2) {
-            return response()->json([
-                'message' => 'Only admins can delete the category.',
-            ]);
+            return $this->response('You do not have own permission.');
         }
 
         $category->delete();

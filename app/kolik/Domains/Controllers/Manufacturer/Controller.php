@@ -76,9 +76,7 @@ final class Controller extends BaseController
         $user = Auth::user();
 
         if ($user->role_id !== 2) {
-            return response()->json([
-                'message' => 'Only admins can add a new manufacturer.',
-            ]);
+            return $this->response('You do not have own permission.');
         }
 
         $newManufacturer = Manufacturer::query()->create([
@@ -126,9 +124,7 @@ final class Controller extends BaseController
         $user = Auth::user();
 
         if ($user->role_id !== 2) {
-            return response()->json([
-                'message' => 'Only admins can change the manufacturer.',
-            ]);
+            return $this->response('You do not have own permission.');
         }
 
         $manufacturer->update([
@@ -165,9 +161,7 @@ final class Controller extends BaseController
         $user = Auth::user();
 
         if ($user->role_id !== 2) {
-            return response()->json([
-                'message' => 'Only admins can delete the manufacturer.',
-            ]);
+            return $this->response('You do not have own permission.');
         }
 
         $manufacturer->delete();

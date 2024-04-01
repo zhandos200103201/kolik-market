@@ -13,7 +13,8 @@ use Illuminate\Validation\Rules\Exists;
 /**
  * @OA\Schema(
  *     schema="FeedbackCreateRequest",
- *     required={"product_id", "service_id", "content", "score"},
+ *     required={"content", "score"},
+ *     description="You should send me either product_id, or service_id",
  *
  *      @OA\Property(
  *           property="product_id",

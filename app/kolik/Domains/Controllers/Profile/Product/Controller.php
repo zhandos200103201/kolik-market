@@ -117,13 +117,7 @@ final class Controller extends BaseController
      *     description="Update user product.",
      *     parameters={
      *      {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
-     *      {"name": "category_id", "in":"query", "type":"string", "required":true, "description":"User name"},
-     *      {"name": "product_name", "in":"query", "type":"string", "required":true, "description":"Product name"},
-     *      {"name": "description", "in":"query", "type":"string", "required":true, "description":"Product description"},
-     *      {"name": "photo", "in":"query", "type":"string", "required":true, "description":"Photo base64"},
-     *      {"name": "price", "in":"query", "type":"integer", "required":true, "description":"Price of product"},
-     *      {"name": "is_used", "in":"query", "type":"boolean", "required":true, "description":"Product used before"},
-     *      {"name": "count", "in":"query", "type":"integer", "required":false, "description":"Sum of products"},
+     *      {"name": "product", "in":"query", "type":"integer", "required":true, "description":"Product id"},
      *     },
      *
      *     @OA\RequestBody(

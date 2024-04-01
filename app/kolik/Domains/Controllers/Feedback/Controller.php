@@ -31,10 +31,10 @@ final class Controller extends BaseController
      */
     public function index(): JsonResponse
     {
-        return response()->json([
-            'message' => 'Feedbacks are successfully retrieved.',
-            IndexResource::collection(Feedback::all()),
-        ]);
+        return $this->response(
+            'Feedbacks are successfully retrieved.',
+            IndexResource::collection(Feedback::all())
+        );
     }
 
     /**
@@ -44,7 +44,21 @@ final class Controller extends BaseController
      *     operationId="feedback-create",
      *     tags={"feedback"},
      *     description="Create product feedbacks.",
-     *     parameters={},
+     *     parameters={
+     *       {"name": "product_id", "in":"header", "type":"integer", "required":true, "description":"Product Id"},
+     *       {"name": "service_id", "in":"header", "type":"integer", "required":true, "description":"Service ID"},
+     *       {"name": "content", "in":"header", "type":"string", "required":true, "description":"Content of feedback"},
+     *       {"name": "score", "in":"header", "type":"float", "required":true, "description":"Score of service or product"},
+     *      },
+     *
+     *     @OA\RequestBody(
+     *
+     *           @OA\MediaType(
+     *               mediaType="application/json",
+     *
+     *               @OA\Schema(ref="#/components/schemas/FeedbackCreateRequest")
+     *           )
+     *       ),
      *
      *     @OA\Response(
      *          response=200,
@@ -67,9 +81,9 @@ final class Controller extends BaseController
 
         // Need to check for fillable
 
-        return response()->json([
-            'message' => 'You left a feedback.',
-            new IndexResource($newFeedback),
-        ]);
+        return $this->response(
+            'You left a feedback.',
+            new IndexResource($newFeedback)
+        );
     }
 }

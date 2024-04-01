@@ -50,6 +50,9 @@ final class Controller extends BaseController
      *     description="Create a new model generation",
      *     parameters={
      *       {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *       {"name": "model_id", "in":"header", "type":"integer", "required":true, "description":"Id of car model"},
+     *       {"name": "start_year", "in":"header", "type":"integer", "required":true, "description":"start generation year"},
+     *       {"name": "end_year", "in":"header", "type":"integer", "required":true, "description":"end generation year"},
      *     },
      *
      *     @OA\RequestBody(
@@ -75,9 +78,7 @@ final class Controller extends BaseController
         $user = Auth::user();
 
         if ($user->role_id !== 2) {
-            return response()->json([
-                'message' => 'Only admins can change the manufacturer.',
-            ]);
+            return $this->response('You do not have own permission.');
         }
 
         $dto = $request->getDto();
@@ -97,12 +98,13 @@ final class Controller extends BaseController
     /**
      * @OA\Put(
      *     summary="Update the model generation",
-     *     path="/generation",
+     *     path="/generations",
      *     operationId="generation-update",
      *     tags={"generation"},
      *     description="Update a model generation",
      *     parameters={
      *       {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *       {"name": "generation", "in":"header", "type":"integer", "required":true, "description":"Id of model generation"},
      *     },
      *
      *     @OA\RequestBody(
@@ -128,9 +130,7 @@ final class Controller extends BaseController
         $user = Auth::user();
 
         if ($user->role_id !== 2) {
-            return response()->json([
-                'message' => 'Only admins can change the manufacturer.',
-            ]);
+            return $this->response('You do not have own permission.');
         }
 
         $dto = $request->getDto();
@@ -150,12 +150,13 @@ final class Controller extends BaseController
     /**
      * @OA\Delete(
      *     summary="Delete the model generation",
-     *     path="/generation",
+     *     path="/generations",
      *     operationId="generation-delete",
      *     tags={"generation"},
      *     description="Delete a model generation",
      *     parameters={
      *       {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *       {"name": "generation", "in":"header", "type":"integer", "required":true, "description":"Id of generation"},
      *     },
      *
      *     @OA\Response(
@@ -170,9 +171,7 @@ final class Controller extends BaseController
         $user = Auth::user();
 
         if ($user->role_id !== 2) {
-            return response()->json([
-                'message' => 'Only admins can delete the generation.',
-            ]);
+            return $this->response('You do not have own permission.');
         }
 
         $generation->delete();

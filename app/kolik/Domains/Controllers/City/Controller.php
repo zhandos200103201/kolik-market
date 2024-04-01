@@ -76,9 +76,7 @@ final class Controller extends BaseController
         $user = Auth::user();
 
         if ($user->role_id !== 2) {
-            return response()->json([
-                'message' => 'Only admins can add the city.',
-            ]);
+            return $this->response('You do not have own permission.');
         }
 
         $newCity = City::query()->create([
@@ -100,7 +98,7 @@ final class Controller extends BaseController
      *     description="Update city name.",
      *     parameters={
      *      {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
-     *      {"name": "city", "in":"header", "type":"string", "required":true, "description":"City name"},
+     *      {"name": "city", "in":"header", "type":"integer", "required":true, "description":"City ID"},
      *     },
      *
      *     @OA\RequestBody(
@@ -126,9 +124,7 @@ final class Controller extends BaseController
         $user = Auth::user();
 
         if ($user->role_id !== 2) {
-            return response()->json([
-                'message' => 'Only admins can update the city.',
-            ]);
+            return $this->response('You do not have own permission.');
         }
 
         $city->update([
@@ -165,9 +161,7 @@ final class Controller extends BaseController
         $user = Auth::user();
 
         if ($user->role_id !== 2) {
-            return response()->json([
-                'message' => 'Only admins can update the city.',
-            ]);
+            return $this->response('You do not have own permission.');
         }
 
         $city->delete();
