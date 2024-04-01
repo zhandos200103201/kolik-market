@@ -27,7 +27,7 @@ final class Controller extends BaseController
      *
      *     @OA\Response(
      *          response=200,
-     *          description="Email is successfully verified.",
+     *          description="Cities are successfully retrieved.",
      *
      *          @OA\JsonContent(ref="#/components/schemas/CityIndexResource"),
      *     )
@@ -166,8 +166,6 @@ final class Controller extends BaseController
 
         $city->delete();
 
-        return $this->response(
-            'City is successfully deleted.'
-        );
+        return $this->response('City is successfully deleted.');
     }
 }
