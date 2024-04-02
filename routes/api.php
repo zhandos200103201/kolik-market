@@ -61,39 +61,38 @@ Route::middleware('auth:sanctum')->group(function (): void {
         Route::delete('{category}', [CategoryController::class, 'delete'])->name('delete');
     });
 
-    Route::prefix('cities')->group(function (): void {
-        Route::get('', [CityController::class, 'index']);
-        Route::post('', [CityController::class, 'create']);
-        Route::put('{city}', [CityController::class, 'update']);
-        Route::delete('{city}', [CityController::class, 'delete']);
+    Route::prefix('cities')->name('city-')->group(function (): void {
+        Route::get('', [CityController::class, 'index'])->name('index');
+        Route::post('', [CityController::class, 'create'])->name('create');
+        Route::put('{city}', [CityController::class, 'update'])->name('update');
+        Route::delete('{city}', [CityController::class, 'delete'])->name('delete');
     });
 
-    Route::prefix('manufacturers')->group(function (): void {
-        Route::get('', [ManufacturerController::class, 'index']);
-
-        Route::middleware('auth:sanctum')->group(function (): void {
-            Route::post('', [ManufacturerController::class, 'create']);
-            Route::put('{manufacturer}', [ManufacturerController::class, 'update']);
-            Route::delete('{manufacturer}', [ManufacturerController::class, 'delete']);
-        });
+    Route::prefix('manufacturers')->name('manufacturer-')->group(function (): void {
+        Route::get('', [ManufacturerController::class, 'index'])->name('index');
+        Route::post('', [ManufacturerController::class, 'create'])->name('create');
+        Route::put('{manufacturer}', [ManufacturerController::class, 'update'])->name('update');
+        Route::delete('{manufacturer}', [ManufacturerController::class, 'delete'])->name('delete');
     });
 
-    Route::prefix('models')->group(function (): void {
-        Route::get('', [CarModelController::class, 'index']);
-        Route::post('', [CarModelController::class, 'create']);
-        Route::put('{model}', [CarModelController::class, 'update']);
-        Route::delete('{model}', [CarModelController::class, 'delete']);
+    Route::prefix('models')->name('model-')->group(function (): void {
+        Route::get('', [CarModelController::class, 'index'])->name('index');
+        Route::post('', [CarModelController::class, 'create'])->name('create');
+        Route::put('{model}', [CarModelController::class, 'update'])->name('update');
+        Route::delete('{model}', [CarModelController::class, 'delete'])->name('delete');
     });
 
-    Route::prefix('generations')->group(function (): void {
+    Route::prefix('generations')->name('generation-')->group(function (): void {
         Route::get('', [ModelGenerationController::class, 'index']);
         Route::post('', [ModelGenerationController::class, 'create']);
         Route::put('{generation}', [ModelGenerationController::class, 'update']);
         Route::delete('{generation}', [ModelGenerationController::class, 'delete']);
     });
+
+
 });
 
-Route::prefix('feedbacks')->group(function (): void {
-    Route::get('', [FeedbackController::class, 'index']);
-    Route::post('', [FeedbackController::class, 'create']);
+Route::prefix('feedbacks')->name('feedback-')->group(function (): void {
+    Route::get('', [FeedbackController::class, 'index'])->name('index');
+    Route::post('', [FeedbackController::class, 'create'])->name('create');
 });

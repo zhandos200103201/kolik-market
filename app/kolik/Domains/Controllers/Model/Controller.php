@@ -142,7 +142,6 @@ final class Controller extends BaseController
             'Model of the car is successfully updated.',
             new IndexResource($model)
         );
-
     }
 
     /**

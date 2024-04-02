@@ -1,0 +1,1756 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "kolik-market.kz",
+        "description": "",
+        "contact": {
+            "email": "200103201@stu.sdu.edu.kz"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "auth",
+                    "register"
+                ],
+                "summary": "User registration.",
+                "description": "User registration.",
+                "operationId": "auth-register",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Name of user"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Email of user"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Password of user"
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Confirmed password of user"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User registered.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthenticationLoginResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "auth",
+                    "login"
+                ],
+                "summary": "Logging in.",
+                "description": "User logging in.",
+                "operationId": "auth-login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Email of user"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Password of user"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User successfully logged in.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthenticationLoginResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "auth",
+                    "logout"
+                ],
+                "summary": "User log out.",
+                "description": "User logging out.",
+                "operationId": "auth-logout",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User successfully logged out."
+                    }
+                }
+            }
+        },
+        "/auth/email/verify/send": {
+            "post": {
+                "tags": [
+                    "auth",
+                    "email",
+                    "send"
+                ],
+                "summary": "User email verification link",
+                "description": "Send the email verification link to the email.",
+                "operationId": "auth-email-send",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Email verification link is successfully send."
+                    }
+                }
+            }
+        },
+        "/auth/email/verify": {
+            "post": {
+                "tags": [
+                    "auth",
+                    "email",
+                    "verify"
+                ],
+                "summary": "User email verification.",
+                "description": "Email verification",
+                "operationId": "auth-email-verify",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "New password."
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Confirm the new Password."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Email is successfully verified."
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "category"
+                ],
+                "summary": "Get product categories",
+                "description": "Get all product categories",
+                "operationId": "category-index",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categories are successfully retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CategoryIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "category"
+                ],
+                "summary": "Updaet the model generation",
+                "description": "Update the category",
+                "operationId": "category-update",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "category",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "Id of category"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CategoryManageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category is successfully updated."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "category"
+                ],
+                "summary": "Create a new product category",
+                "description": "Create a new product category",
+                "operationId": "category-create",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "name",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Name of category"
+                    },
+                    {
+                        "name": "description",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Description of category"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CategoryManageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category is successfully created."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "category"
+                ],
+                "summary": "Delete the product category",
+                "description": "Delete a product category",
+                "operationId": "category-delete",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "category",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "ID of category"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category is successfully deleted."
+                    }
+                }
+            }
+        },
+        "/cities": {
+            "get": {
+                "tags": [
+                    "city"
+                ],
+                "summary": "Get all cities.",
+                "description": "Kazakhstan cities",
+                "operationId": "city-index",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cities are successfully retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CityIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "city"
+                ],
+                "summary": "Set city",
+                "description": "Update city name.",
+                "operationId": "city-update",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "city",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "City ID"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CityManageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "City is successfully updated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CityIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "city"
+                ],
+                "summary": "Create a new city.",
+                "description": "Create a new city",
+                "operationId": "city-create",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "city",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "City Name"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CityManageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "New city is successfully created.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CityIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "city"
+                ],
+                "summary": "Delete the city",
+                "description": "Delete the city",
+                "operationId": "city-delete",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "city",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "ID of city"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "City is successfully deleted."
+                    }
+                }
+            }
+        },
+        "/feedbacks": {
+            "get": {
+                "tags": [
+                    "feedback"
+                ],
+                "summary": "Get user feedbacks for products",
+                "description": "Get product feedbacks.",
+                "operationId": "feedback-index",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Feedbacks are successfully retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FeedbackIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "feedback"
+                ],
+                "summary": "Create user feedback for products",
+                "description": "Create product feedbacks.",
+                "operationId": "feedback-create",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "Product Id"
+                    },
+                    {
+                        "name": "service_id",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "Service ID"
+                    },
+                    {
+                        "name": "content",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Content of feedback"
+                    },
+                    {
+                        "name": "score",
+                        "in": "header",
+                        "type": "float",
+                        "required": true,
+                        "description": "Score of service or product"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FeedbackCreateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "You left a feedback.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FeedbackIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/generations": {
+            "get": {
+                "tags": [
+                    "generation"
+                ],
+                "summary": "Get model generation",
+                "description": "Get car model generations",
+                "operationId": "generation-index",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Model generations are successfully retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelGenerationIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "generation"
+                ],
+                "summary": "Update the model generation",
+                "description": "Update a model generation",
+                "operationId": "generation-update",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "generation",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "Id of model generation"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GenerationManageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The generation of the model is successfully updated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelGenerationIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "generation"
+                ],
+                "summary": "Create a new model generation",
+                "description": "Create a new model generation",
+                "operationId": "generation-create",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "model_id",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "Id of car model"
+                    },
+                    {
+                        "name": "start_year",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "start generation year"
+                    },
+                    {
+                        "name": "end_year",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "end generation year"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GenerationManageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "New generation of the model is successfully created.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelGenerationIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "generation"
+                ],
+                "summary": "Delete the model generation",
+                "description": "Delete a model generation",
+                "operationId": "generation-delete",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "generation",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "Id of generation"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Generation is successfully deleted."
+                    }
+                }
+            }
+        },
+        "/manufacturers": {
+            "get": {
+                "tags": [
+                    "manufacturer"
+                ],
+                "summary": "Get all manufactures.",
+                "description": "Manufacturer like: Toyota, Mercedes",
+                "operationId": "manufacturer-index",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Manufacturers are successfully retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ManufacturerIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "manufacturer"
+                ],
+                "summary": "Update the manufacturer.",
+                "description": "Update manufacturer name.",
+                "operationId": "manufacturer-update",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "name",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Manufacturer name"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ManufacturerManageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Manufacturer is successfully updated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ManufacturerIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "manufacturer"
+                ],
+                "summary": "Create a new manufacturer.",
+                "description": "Create a new manufacturer",
+                "operationId": "manufacturer-create",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "name",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Manufacturer Name"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ManufacturerManageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Manufacturer is successfully created.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ManufacturerIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "manufacturer"
+                ],
+                "summary": "Delete the manufacturer.",
+                "description": "Delete the manufacturer.",
+                "operationId": "manufacturer-delete",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "city",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "ID of city"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Manufacturer is successfully deleted."
+                    }
+                }
+            }
+        },
+        "/models": {
+            "get": {
+                "tags": [
+                    "model"
+                ],
+                "summary": "Get all car models.",
+                "description": "Get all car models",
+                "operationId": "model-index",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Models of the cars are successfully retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CityIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "model"
+                ],
+                "summary": "Update the car model",
+                "description": "Update model name.",
+                "operationId": "model-update",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "model",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "Car model ID"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ModelManageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Model of the car is successfully updated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "model"
+                ],
+                "summary": "Create a new car model.",
+                "description": "Create a new model",
+                "operationId": "model-create",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "model_name",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Model Name"
+                    },
+                    {
+                        "name": "manufacturer_id",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "Manufacturer ID"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ModelManageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Model of the car is successfully created.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModelIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "model"
+                ],
+                "summary": "Delete the car model",
+                "description": "Delete the car model",
+                "operationId": "model-delete",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "model",
+                        "in": "header",
+                        "type": "integer",
+                        "required": true,
+                        "description": "Car model id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Model of the car is successfully deleted."
+                    }
+                }
+            }
+        },
+        "/profiles/products": {
+            "get": {
+                "tags": [
+                    "profile",
+                    "product"
+                ],
+                "summary": "Get user profile products",
+                "description": "Get user products.",
+                "operationId": "profile-product-index",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User products are successfully retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileProductIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "profile",
+                    "product"
+                ],
+                "summary": "Set user product",
+                "description": "Update user product.",
+                "operationId": "profile-product-update",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "product",
+                        "in": "query",
+                        "type": "integer",
+                        "required": true,
+                        "description": "Product id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProfileProductManageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Product is successfully update."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "profile",
+                    "product"
+                ],
+                "summary": "Create new user product.",
+                "description": "Create a new product",
+                "operationId": "profile-product-create",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "User name"
+                    },
+                    {
+                        "name": "product_name",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Product name"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Product description"
+                    },
+                    {
+                        "name": "photo",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Photo base64"
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "type": "integer",
+                        "required": true,
+                        "description": "Price of product"
+                    },
+                    {
+                        "name": "is_used",
+                        "in": "query",
+                        "type": "boolean",
+                        "required": true,
+                        "description": "Product used before"
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "type": "integer",
+                        "required": false,
+                        "description": "Sum of products"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProfileProductManageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Product is successfully created."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "profile",
+                    "product"
+                ],
+                "summary": "Delete user product",
+                "description": "Delete user product.",
+                "operationId": "profile-product-delete",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "product",
+                        "in": "query",
+                        "type": "integer",
+                        "required": true,
+                        "description": "User product ID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product is successfully deleted."
+                    }
+                }
+            }
+        },
+        "/profiles/settings/info": {
+            "get": {
+                "tags": [
+                    "profile",
+                    "setting",
+                    "info"
+                ],
+                "summary": "Get user profile",
+                "description": "Get user information.",
+                "operationId": "profile-setting-info-index",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Profile info is successfully retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileSettingInfoIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "profile",
+                    "setting",
+                    "info"
+                ],
+                "summary": "Set user profile",
+                "description": "Update user information.",
+                "operationId": "profile-setting-info-update",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "name",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "User name"
+                    },
+                    {
+                        "name": "email",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "New user email"
+                    },
+                    {
+                        "name": "address",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "New user address"
+                    },
+                    {
+                        "name": "photo",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "New user photo"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProfileSettingInfoUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Profile info is successfully updated."
+                    }
+                }
+            }
+        },
+        "/profiles/settings/password/email": {
+            "post": {
+                "tags": [
+                    "profile",
+                    "setting",
+                    "password",
+                    "email"
+                ],
+                "summary": "Reset user password link.",
+                "description": "Reset password",
+                "operationId": "profile-setting-password-email",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "The user email for resetting the password."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Email is successfully verified."
+                    }
+                }
+            }
+        },
+        "/profiles/settings/password/reset": {
+            "post": {
+                "tags": [
+                    "profile",
+                    "setting",
+                    "password",
+                    "reset"
+                ],
+                "summary": "User password reset.",
+                "description": "User password reset.",
+                "operationId": "profile-setting-password-reset",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "New password."
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Confirm the new Password."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Your password is successfully reset."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CategoryManageRequest": {
+                "required": [
+                    "name",
+                    "description"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Name of category"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Description of category"
+                    }
+                },
+                "type": "object"
+            },
+            "CityManageRequest": {
+                "required": [
+                    "city"
+                ],
+                "properties": {
+                    "city": {
+                        "type": "string",
+                        "example": "Almaty"
+                    }
+                },
+                "type": "object"
+            },
+            "FeedbackCreateRequest": {
+                "description": "You should send me either product_id, or service_id",
+                "required": [
+                    "content",
+                    "score"
+                ],
+                "properties": {
+                    "product_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "service_id": {
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "content": {
+                        "type": "string",
+                        "example": "This service is very good."
+                    },
+                    "score": {
+                        "type": "number",
+                        "format": "float",
+                        "example": "4.5"
+                    }
+                },
+                "type": "object"
+            },
+            "GenerationManageRequest": {
+                "required": [
+                    "model_id",
+                    "start_year",
+                    "end_year"
+                ],
+                "properties": {
+                    "model_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "start_year": {
+                        "type": "string",
+                        "example": "2015"
+                    },
+                    "end_year": {
+                        "type": "string",
+                        "example": "2024"
+                    }
+                },
+                "type": "object"
+            },
+            "ManufacturerManageRequest": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Toyota"
+                    }
+                },
+                "type": "object"
+            },
+            "ModelManageRequest": {
+                "required": [
+                    "model_name",
+                    "manufacturer_id"
+                ],
+                "properties": {
+                    "model_name": {
+                        "type": "string",
+                        "example": "Camry"
+                    },
+                    "manufacturer_id": {
+                        "type": "integer",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "ProfileProductManageRequest": {
+                "required": [
+                    "category_id",
+                    "product_name",
+                    "description",
+                    "photo",
+                    "price",
+                    "is_used",
+                    "views"
+                ],
+                "properties": {
+                    "category_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "product_name": {
+                        "type": "string",
+                        "example": "Triapka"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Product washing the car"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "example": "base64 format image"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "example": "18000"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "example": "231"
+                    },
+                    "is_used": {
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "views": {
+                        "type": "integer",
+                        "example": "user views"
+                    }
+                },
+                "type": "object"
+            },
+            "ProfileSettingInfoUpdateRequest": {
+                "required": [
+                    "name",
+                    "email",
+                    "address",
+                    "photo"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Zhandos"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "zhandos@gmail.com"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Almaty"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "example": "base64 format image"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthenticationLoginResource": {
+                "properties": {
+                    "user": {
+                        "type": "string",
+                        "example": "Zhandos"
+                    },
+                    "token": {
+                        "type": "string",
+                        "example": "2|Cyw88IgISslutPtMv4HoDsZvcQ5mRrWrsEgWpwko6248d039"
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryIndexResource": {
+                "properties": {
+                    "category_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Name category"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Description of category"
+                    }
+                },
+                "type": "object"
+            },
+            "CityIndexResource": {
+                "properties": {
+                    "city_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "city_name": {
+                        "type": "string",
+                        "example": "City name"
+                    }
+                },
+                "type": "object"
+            },
+            "FeedbackIndexResource": {
+                "properties": {
+                    "feedback_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "product_id": {
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "service_id": {
+                        "type": "integer",
+                        "example": "3"
+                    },
+                    "content": {
+                        "type": "string",
+                        "example": "This product is very good"
+                    },
+                    "score": {
+                        "type": "number",
+                        "format": "float",
+                        "example": "4.9"
+                    }
+                },
+                "type": "object"
+            },
+            "ModelGenerationIndexResource": {
+                "properties": {
+                    "generation_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "model_id": {
+                        "type": "integer",
+                        "example": "3"
+                    },
+                    "start_year": {
+                        "type": "integer",
+                        "example": "2015"
+                    },
+                    "end_year": {
+                        "type": "integer",
+                        "example": "2020"
+                    }
+                },
+                "type": "object"
+            },
+            "ManufacturerIndexResource": {
+                "properties": {
+                    "manufacturer_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Toyota"
+                    }
+                },
+                "type": "object"
+            },
+            "ModelIndexResource": {
+                "properties": {
+                    "model_id": {
+                        "type": "integer",
+                        "example": "7"
+                    },
+                    "model_name": {
+                        "type": "string",
+                        "example": "Camry 75"
+                    },
+                    "manufacturer_id": {
+                        "type": "integer",
+                        "example": "2"
+                    }
+                },
+                "type": "object"
+            },
+            "ProfileProductIndexResource": {
+                "properties": {
+                    "product_name": {
+                        "type": "string",
+                        "example": "Detail of something"
+                    },
+                    "product_description": {
+                        "type": "string",
+                        "example": "Product description"
+                    },
+                    "product_category": {
+                        "type": "string",
+                        "example": "Car"
+                    },
+                    "product_owner": {
+                        "type": "string",
+                        "example": "Zhandos"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "example": "base64 format images"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "example": "18000"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "example": "base64 format images"
+                    },
+                    "is_user": {
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "views": {
+                        "type": "integer",
+                        "example": "17"
+                    }
+                },
+                "type": "object"
+            },
+            "ProfileSettingInfoIndexResource": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Zhandos"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "zhandos@gmail.com"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Almaty"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "example": "base64 format images"
+                    },
+                    "email_verified_at": {
+                        "type": "Date",
+                        "example": "2024-03-27 11:38:20"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
