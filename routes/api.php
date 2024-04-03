@@ -83,12 +83,11 @@ Route::middleware('auth:sanctum')->group(function (): void {
     });
 
     Route::prefix('generations')->name('generation-')->group(function (): void {
-        Route::get('', [ModelGenerationController::class, 'index']);
-        Route::post('', [ModelGenerationController::class, 'create']);
-        Route::put('{generation}', [ModelGenerationController::class, 'update']);
-        Route::delete('{generation}', [ModelGenerationController::class, 'delete']);
+        Route::get('', [ModelGenerationController::class, 'index'])->name('index');
+        Route::post('', [ModelGenerationController::class, 'create'])->name('create');
+        Route::put('{generation}', [ModelGenerationController::class, 'update'])->name('update');
+        Route::delete('{generation}', [ModelGenerationController::class, 'delete'])->name('delete');
     });
-
 
 });
 
