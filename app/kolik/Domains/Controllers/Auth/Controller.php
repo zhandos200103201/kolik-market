@@ -9,6 +9,7 @@ use App\kolik\Domains\Core\DTO\Auth\Login\ResponseDTO;
 use App\kolik\Domains\Request\Auth\LoginRequest;
 use App\kolik\Domains\Request\Auth\RegisterRequest;
 use App\kolik\Domains\Resource\Auth\LoginResource;
+use App\kolik\Support\Core\Exceptions\DomainException;
 use App\Mail\EmailVerification;
 use App\Models\Role;
 use App\Models\User;
@@ -50,7 +51,7 @@ final class Controller extends BaseController
         $role = Role::query()->where('title', 'Seller')->firstOrFail();
 
         /** @var User $user */
-        $user = User::query()->insert([
+        $user = User::query()->create([
             'role_id' => $role->role_id,
             'name' => $data->name,
             'email' => $data->email,
@@ -83,13 +84,12 @@ final class Controller extends BaseController
      *          @OA\JsonContent(ref="#/components/schemas/AuthenticationLoginResource"),
      *     )
      * )
+     * @throws DomainException
      */
     public function login(LoginRequest $request): JsonResponse
     {
         if (! Auth::attempt($request->validated())) {
-            return response()->json([
-                'message' => 'Unauthorised.',
-            ], 401);
+            throw new DomainException('Unauthorised.');
         }
 
         /** @var User $user */
