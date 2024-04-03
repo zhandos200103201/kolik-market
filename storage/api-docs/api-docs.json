@@ -485,6 +485,31 @@
                 }
             }
         },
+        "/dashboard/products/resources": {
+            "get": {
+                "tags": [
+                    "dashboard",
+                    "product",
+                    "resource"
+                ],
+                "summary": "Get product resource",
+                "description": "Get resource like categories, manufacturer",
+                "operationId": "dasdboard-product-resource-index",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Product resource are successfully loaded.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DashboardProductIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/feedbacks": {
             "get": {
                 "tags": [
@@ -1604,6 +1629,35 @@
                     "city_name": {
                         "type": "string",
                         "example": "City name"
+                    }
+                },
+                "type": "object"
+            },
+            "DashboardProductIndexResource": {
+                "properties": {
+                    "categories": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CategoryIndexResource"
+                        }
+                    },
+                    "manufacturer": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ManufacturerIndexResource"
+                        }
+                    },
+                    "car_models": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ModelIndexResource"
+                        }
+                    },
+                    "generations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ModelGenerationIndexResource"
+                        }
                     }
                 },
                 "type": "object"
