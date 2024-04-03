@@ -16,22 +16,22 @@ use Illuminate\Validation\Rules\Exists;
  *      @OA\Property(
  *           property="category_id",
  *           type="integer",
- *           example="Almaty"
+ *           example="1"
  *      ),
  *      @OA\Property(
  *           property="manufacturer_id",
  *           type="integer",
- *           example="Almaty"
+ *           example="3"
  *      ),
  *      @OA\Property(
  *           property="car_model_id",
  *           type="integer",
- *           example="Almaty"
+ *           example="2"
  *      ),
  *      @OA\Property(
  *           property="generation_id",
  *           type="integer",
- *           example="Almaty"
+ *           example="1"
  *      ),
  *      @OA\Property(
  *           property="name",

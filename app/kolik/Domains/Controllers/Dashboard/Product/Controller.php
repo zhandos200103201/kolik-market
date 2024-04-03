@@ -20,7 +20,13 @@ final class Controller extends BaseController
      *     operationId="dashboard-product-index",
      *     tags={"dashboard", "product"},
      *     description="Getting products by parameters.",
-     *     parameters={},
+     *     parameters={
+     *       {"name": "category_id", "in":"query", "type":"integer", "required":true, "description":"id of category"},
+     *       {"name": "manufacturer_id", "in":"query", "type":"integer", "required":true, "description":"id of manufacturer"},
+     *       {"name": "car_model_id", "in":"query", "type":"integer", "required":true, "description":"id of car model"},
+     *       {"name": "generation_id", "in":"query", "type":"integer", "required":true, "description":"id of generation"},
+     *       {"name": "name", "in":"query", "type":"string", "required":true, "description":"Name of product"},
+     *      },
      *
      *     @OA\RequestBody(
      *
