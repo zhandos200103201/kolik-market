@@ -485,6 +485,63 @@
                 }
             }
         },
+        "/dashboard/products": {
+            "get": {
+                "tags": [
+                    "dashboard",
+                    "product"
+                ],
+                "summary": "Get products.",
+                "description": "Getting products by parameters.",
+                "operationId": "dashboard-product-index",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DashboardProductIndexRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Products are successfully retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileProductIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/products/{product}": {
+            "get": {
+                "tags": [
+                    "dashboard",
+                    "product"
+                ],
+                "summary": "Get the product with feedbacks.",
+                "description": "Getting the product with feedbacks.",
+                "operationId": "dashboard-product-show",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Product is successfully retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileProductIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/dashboard/products/resources": {
             "get": {
                 "tags": [
@@ -1435,6 +1492,31 @@
                     "city": {
                         "type": "string",
                         "example": "Almaty"
+                    }
+                },
+                "type": "object"
+            },
+            "DashboardProductIndexRequest": {
+                "properties": {
+                    "category_id": {
+                        "type": "integer",
+                        "example": "Almaty"
+                    },
+                    "manufacturer_id": {
+                        "type": "integer",
+                        "example": "Almaty"
+                    },
+                    "car_model_id": {
+                        "type": "integer",
+                        "example": "Almaty"
+                    },
+                    "generation_id": {
+                        "type": "integer",
+                        "example": "Almaty"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Lobovoe steklo"
                     }
                 },
                 "type": "object"

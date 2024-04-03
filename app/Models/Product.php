@@ -5,12 +5,17 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Ramsey\Collection\Collection;
 
 /**
  * @property int $product_id
  * @property int $user_id
  * @property int $category_id
+ * @property int $manufacturer_id
+ * @property int $model_id
+ * @property int $generation_id
  * @property string $name
  * @property string $description
  * @property string $photo
@@ -23,6 +28,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property Carbon|string|null $update_at
  * @property-read Category|null $category
  * @property-read User|null $user
+ * @property-read Manufacturer|null $manufacturer
+ * @property-read CarModel|null $model
+ * @property-read ModelGeneration|null $generation
+ * @property-read Feedback[]|Collection $feedbacks
  */
 final class Product extends Model
 {
@@ -84,5 +93,25 @@ final class Product extends Model
     public function user(): HasOne
     {
         return $this->hasOne(User::class, 'user_id', 'user_id');
+    }
+
+    public function manufacturer(): HasOne
+    {
+        return $this->hasOne(Manufacturer::class, 'manufacturer_id', 'manufacturer_id');
+    }
+
+    public function model(): HasOne
+    {
+        return $this->hasOne(CarModel::class, 'model_id', 'model_id');
+    }
+
+    public function generation(): HasOne
+    {
+        return $this->hasOne(ModelGeneration::class, 'generation_id', 'generation_id');
+    }
+
+    public function feedbacks(): HasMany
+    {
+        return $this->hasMany(Feedback::class, 'product_id', 'product_id');
     }
 }

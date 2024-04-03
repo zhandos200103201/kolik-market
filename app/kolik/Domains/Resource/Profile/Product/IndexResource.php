@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\kolik\Domains\Resource\Profile\Product;
 
 use App\Http\Resource\Resource as BaseResource;
+use App\kolik\Domains\Resource\Feedback\IndexResource as FeedbackResource;
 use App\Models\Product;
 
 /**
@@ -64,6 +65,8 @@ final class IndexResource extends BaseResource
 {
     public function getResponseArray(): array
     {
+        $feedbacks = FeedbackResource::collection($this->feedbacks);
+
         return [
             'product_id' => $this->product_id,
             'product_name' => $this->name,
@@ -75,6 +78,7 @@ final class IndexResource extends BaseResource
             'count' => $this->count,
             'is_used' => $this->is_used,
             'views' => $this->views,
+            'feedbacks' => $feedbacks !== null ? $feedbacks : null,
         ];
     }
 }

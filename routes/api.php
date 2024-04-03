@@ -3,6 +3,7 @@
 use App\kolik\Domains\Controllers\Auth\Controller as AuthenticationController;
 use App\kolik\Domains\Controllers\Category\Controller as CategoryController;
 use App\kolik\Domains\Controllers\City\Controller as CityController;
+use App\kolik\Domains\Controllers\Dashboard\Product\Controller as DashboardProductController;
 use App\kolik\Domains\Controllers\Dashboard\Product\Resource\Controller as DashboardProductResourceController;
 use App\kolik\Domains\Controllers\Feedback\Controller as FeedbackController;
 use App\kolik\Domains\Controllers\Generation\Controller as ModelGenerationController;
@@ -99,6 +100,8 @@ Route::prefix('feedbacks')->name('feedback-')->group(function (): void {
 
 Route::prefix('dashboard/')->name('dashboard-')->group(function (): void {
     Route::prefix('products/')->name('product-')->group(function (): void {
+        Route::get('', [DashboardProductController::class, 'index'])->name('index');
+        Route::get('{product}', [DashboardProductController::class, 'show'])->name('show');
 
         Route::prefix('resources/')->name('resource-')->group(function (): void {
             Route::get('', [DashboardProductResourceController::class, 'index'])->name('index');
