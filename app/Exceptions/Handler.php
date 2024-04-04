@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
+use App\kolik\Support\Core\Exceptions\DomainException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
 
 final class Handler extends ExceptionHandler
 {
@@ -24,6 +26,16 @@ final class Handler extends ExceptionHandler
      */
     public function register(): void
     {
+        $this->renderable(function (Throwable $e) {
+            if ($e instanceof DomainException){
+                return response([
+                    'message' => $e->getMessage(),
+                ]);
+            }
 
+            return response([
+                'message' => $e->getMessage(),
+            ]);
+        });
     }
 }

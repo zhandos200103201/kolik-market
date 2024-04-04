@@ -49,7 +49,7 @@ final class IndexResource extends BaseResource
             'email' => $this->email,
             'address' => $this->address,
             'photo' => $this->photo,
-            'email_verified_at' => $this->email_verified_at->toDateTimeString(),
+            'email_verified_at' => $this->email_verified_at?->toDateTimeString(),
         ];
     }
 }

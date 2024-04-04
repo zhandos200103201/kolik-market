@@ -35,10 +35,10 @@ final class Controller extends BaseController
      */
     public function index(): JsonResponse
     {
-        return response()->json([
-            'message' => 'Categories are successfully retrieved.',
-            IndexResource::collection(Category::all()),
-        ]);
+        return $this->response(
+            'Categories are successfully retrieved.',
+            IndexResource::collection(Category::all())
+        );
     }
 
     /**
@@ -78,10 +78,10 @@ final class Controller extends BaseController
             'description' => $dto->description,
         ]);
 
-        return response()->json([
-            'message' => 'Category is successfully created.',
-            'data' => $newCategory,
-        ]);
+        return $this->response(
+            'Category is successfully created.',
+            new IndexResource($newCategory)
+        );
     }
 
     /**
@@ -120,10 +120,10 @@ final class Controller extends BaseController
             'description' => $dto->description,
         ]);
 
-        return response()->json([
-            'message' => 'Category is successfully updated.',
-            'data' => $category,
-        ]);
+        return $this->response(
+            'Category is successfully updated.',
+            new IndexResource($category)
+        );
     }
 
     /**
@@ -155,8 +155,8 @@ final class Controller extends BaseController
 
         $category->delete();
 
-        return response()->json([
-            'message' => 'Category is successfully deleted.',
-        ]);
+        return $this->response(
+            'Category is successfully deleted.',
+        );
     }
 }

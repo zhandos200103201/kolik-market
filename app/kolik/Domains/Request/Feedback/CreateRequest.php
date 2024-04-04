@@ -46,7 +46,7 @@ final class CreateRequest extends FormRequest
             'product_id' => ['required_without:service_id', 'integer', new Exists(Product::class, 'product_id')],
             'service_id' => ['required_without:product_id', 'integer', new Exists(Service::class, 'service_id')],
             'content' => ['required', 'string'],
-            'score' => ['required', 'float'],
+            'score' => ['required', 'numeric', 'between:0,5'],
         ];
     }
 

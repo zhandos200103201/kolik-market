@@ -72,13 +72,6 @@ final class Controller extends BaseController
      */
     public function create(ManageRequest $request): JsonResponse
     {
-        /** @var User $user */
-        $user = Auth::user();
-
-        if ($user->role_id !== 2) {
-            return $this->response('You do not have own permission.');
-        }
-
         $newManufacturer = Manufacturer::query()->create([
             'name' => $request->getName(),
         ]);
@@ -120,13 +113,6 @@ final class Controller extends BaseController
      */
     public function update(Manufacturer $manufacturer, ManageRequest $request): JsonResponse
     {
-        /** @var User $user */
-        $user = Auth::user();
-
-        if ($user->role_id !== 2) {
-            return $this->response('You do not have own permission.');
-        }
-
         $manufacturer->update([
             'name' => $request->getName(),
         ]);
@@ -157,13 +143,6 @@ final class Controller extends BaseController
      */
     public function delete(Manufacturer $manufacturer): JsonResponse
     {
-        /** @var User $user */
-        $user = Auth::user();
-
-        if ($user->role_id !== 2) {
-            return $this->response('You do not have own permission.');
-        }
-
         $manufacturer->delete();
 
         return $this->response('Manufacturer is successfully deleted.');

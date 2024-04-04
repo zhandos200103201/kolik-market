@@ -79,8 +79,6 @@ final class Controller extends BaseController
             'score' => $dto->score,
         ]);
 
-        // Need to check for fillable
-
         return $this->response(
             'You left a feedback.',
             new IndexResource($newFeedback)

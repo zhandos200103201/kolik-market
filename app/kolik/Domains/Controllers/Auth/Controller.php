@@ -84,6 +84,7 @@ final class Controller extends BaseController
      *          @OA\JsonContent(ref="#/components/schemas/AuthenticationLoginResource"),
      *     )
      * )
+     *
      * @throws DomainException
      */
     public function login(LoginRequest $request): JsonResponse

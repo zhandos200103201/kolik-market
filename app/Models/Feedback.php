@@ -50,6 +50,8 @@ class Feedback extends Model
     protected $fillable = [
         'content',
         'score',
+        'product_id',
+        'service_id'
     ];
 
     /**
