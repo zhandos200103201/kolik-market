@@ -27,7 +27,7 @@ final class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->renderable(function (Throwable $e) {
-            if ($e instanceof DomainException){
+            if ($e instanceof DomainException) {
                 return response([
                     'message' => $e->getMessage(),
                 ]);

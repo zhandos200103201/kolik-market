@@ -8,9 +8,7 @@ use App\Http\Controllers\Controller as BaseController;
 use App\kolik\Domains\Request\Manufacturer\ManageRequest;
 use App\kolik\Domains\Resource\Manufacturer\IndexResource;
 use App\Models\Manufacturer;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 final class Controller extends BaseController
 {

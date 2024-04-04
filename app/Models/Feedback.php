@@ -51,7 +51,7 @@ class Feedback extends Model
         'content',
         'score',
         'product_id',
-        'service_id'
+        'service_id',
     ];
 
     /**
