@@ -30,6 +30,9 @@ swagger:
 psalm:
 	- docker exec -ti kolik-market-api vendor/bin/psalm --no-cache
 
+config:
+	- docker exec -ti kolik-market-api php artisan config:cache
+
 check-env:
 ifeq (,$(wildcard ./.env))
 	cp .env.example .env

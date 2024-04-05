@@ -11,7 +11,6 @@ use App\kolik\Domains\Request\Auth\RegisterRequest;
 use App\kolik\Domains\Resource\Auth\LoginResource;
 use App\kolik\Support\Core\Exceptions\DomainException;
 use App\Mail\EmailVerification;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -42,26 +41,26 @@ final class Controller extends BaseController
      *          @OA\JsonContent(ref="#/components/schemas/AuthenticationLoginResource"),
      *     )
      * )
+     *
+     * @throws DomainException
      */
     public function register(RegisterRequest $request): JsonResponse
     {
         $data = $request->getDto();
 
-        /** @var Role $role */
-        $role = Role::query()->where('title', 'Seller')->firstOrFail();
-
-        /** @var User $user */
         $user = User::query()->create([
-            'role_id' => $role->role_id,
             'name' => $data->name,
             'email' => $data->email,
             'password' => Hash::make($data->password),
             'status' => true,
         ]);
 
+        if (! $user) {
+            throw new DomainException('User does not created.');
+        }
+
         return $this->response(
-            'User registered.',
-            new LoginResource(new ResponseDTO($user, $user->createToken('Personal Access Token')->plainTextToken))
+            'User is successfully registered.'
         );
     }
 

@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use App\kolik\Support\Core\Exceptions\DomainException;
+use App\kolik\Support\Core\Traits\ResponseTrait;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
 final class Handler extends ExceptionHandler
 {
+    use ResponseTrait;
+
     /**
      * The list of the inputs that are never flashed to the session on validation exceptions.
      *
@@ -28,14 +31,14 @@ final class Handler extends ExceptionHandler
     {
         $this->renderable(function (Throwable $e) {
             if ($e instanceof DomainException) {
-                return response([
-                    'message' => $e->getMessage(),
-                ]);
+                return $this->defaultErrorResponse(
+                    $e->getMessage()
+                );
             }
 
-            return response([
-                'message' => $e->getMessage(),
-            ]);
+            return $this->defaultErrorResponse(
+                $e->getMessage()
+            );
         });
     }
 }

@@ -101,11 +101,11 @@ Route::prefix('feedbacks')->name('feedback-')->group(function (): void {
 
 Route::prefix('dashboard')->name('dashboard-')->group(function (): void {
     Route::prefix('products')->name('product-')->group(function (): void {
-        Route::get('', [DashboardProductController::class, 'index'])->name('index');
-        Route::get('{product}', [DashboardProductController::class, 'show'])->name('show');
-
         Route::prefix('resources')->name('resource-')->group(function (): void {
             Route::get('', [DashboardProductResourceController::class, 'index'])->name('index');
         });
+
+        Route::get('', [DashboardProductController::class, 'index'])->name('index');
+        Route::get('{product}', [DashboardProductController::class, 'show'])->name('show');
     });
 });
