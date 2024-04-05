@@ -8,9 +8,7 @@ use App\Http\Controllers\Controller as BaseController;
 use App\kolik\Domains\Request\Generation\ManageRequest;
 use App\kolik\Domains\Resource\Generation\IndexResource;
 use App\Models\ModelGeneration;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 final class Controller extends BaseController
 {
@@ -74,13 +72,6 @@ final class Controller extends BaseController
      */
     public function create(ManageRequest $request): JsonResponse
     {
-        /** @var User $user */
-        $user = Auth::user();
-
-        if ($user->role_id !== 2) {
-            return $this->response('You do not have own permission.');
-        }
-
         $dto = $request->getDto();
 
         $newGeneration = ModelGeneration::query()->create([
@@ -126,13 +117,6 @@ final class Controller extends BaseController
      */
     public function update(ModelGeneration $generation, ManageRequest $request): JsonResponse
     {
-        /** @var User $user */
-        $user = Auth::user();
-
-        if ($user->role_id !== 2) {
-            return $this->response('You do not have own permission.');
-        }
-
         $dto = $request->getDto();
 
         $generation->update([
@@ -167,13 +151,6 @@ final class Controller extends BaseController
      */
     public function delete(ModelGeneration $generation): JsonResponse
     {
-        /** @var User $user */
-        $user = Auth::user();
-
-        if ($user->role_id !== 2) {
-            return $this->response('You do not have own permission.');
-        }
-
         $generation->delete();
 
         return $this->response('Generation is successfully deleted.');

@@ -8,9 +8,7 @@ use App\Http\Controllers\Controller as BaseController;
 use App\kolik\Domains\Request\Model\ManageRequest;
 use App\kolik\Domains\Resource\Model\IndexResource;
 use App\Models\CarModel;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 final class Controller extends BaseController
 {
@@ -73,23 +71,15 @@ final class Controller extends BaseController
      */
     public function create(ManageRequest $request): JsonResponse
     {
-        /** @var User $user */
-        $user = Auth::user();
-
-        if ($user->role_id !== 2) {
-            return $this->response('You do not have own permission.');
-        }
-
         $dto = $request->getDto();
 
-        $newModel = CarModel::query()->create([
-            'name' => $dto->modelName,
+        CarModel::query()->create([
+            'model_name' => $dto->modelName,
             'manufacturer_id' => $dto->manufacturerId,
         ]);
 
         return $this->response(
             'Model of the car is successfully created.',
-            new IndexResource($newModel)
         );
     }
 
@@ -124,17 +114,10 @@ final class Controller extends BaseController
      */
     public function update(CarModel $model, ManageRequest $request): JsonResponse
     {
-        /** @var User $user */
-        $user = Auth::user();
-
-        if ($user->role_id !== 2) {
-            return $this->response('You do not have own permission.');
-        }
-
         $dto = $request->getDto();
 
         $model->update([
-            'name' => $dto->modelName,
+            'model_name' => $dto->modelName,
             'manufacturer_id' => $dto->manufacturerId,
         ]);
 
@@ -164,13 +147,6 @@ final class Controller extends BaseController
      */
     public function delete(CarModel $model): JsonResponse
     {
-        /** @var User $user */
-        $user = Auth::user();
-
-        if ($user->role_id !== 2) {
-            return $this->response('You do not have own permission.');
-        }
-
         $model->delete();
 
         return $this->response('Model of the car is successfully deleted.');
