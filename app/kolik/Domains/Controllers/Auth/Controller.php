@@ -89,7 +89,7 @@ final class Controller extends BaseController
     public function login(LoginRequest $request): JsonResponse
     {
         if (! Auth::attempt($request->validated())) {
-            throw new DomainException('Unauthorised.');
+            throw new DomainException('User email or password is wrong.');
         }
 
         /** @var User $user */

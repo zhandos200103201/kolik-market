@@ -11,6 +11,7 @@ use App\kolik\Support\Core\Exceptions\DomainException;
 use App\Mail\ResetPasswordLink;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 final class Controller extends BaseController
@@ -50,9 +51,20 @@ final class Controller extends BaseController
      *     description="User password reset.",
      *     parameters={
      *      {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
-     *      {"name": "password", "in":"query", "type":"string", "required":true, "description":"New password."},
-     *      {"name": "password_confirmation", "in":"query", "type":"string", "required":true, "description":"Confirm the new Password."},
+     *      {"name": "email", "in":"query", "type":"email", "required":true, "description":"User email"},
+     *      {"name": "current_password", "in":"query", "type":"string", "required":true, "description":"Current password."},
+     *      {"name": "new_password", "in":"query", "type":"string", "required":true, "description":"New password."},
+     *      {"name": "new_password_confirmation", "in":"query", "type":"string", "required":true, "description":"Confirm the new Password."},
      *     },
+     *
+     *     @OA\RequestBody(
+     *
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *
+     *              @OA\Schema(ref="#/components/schemas/ProfileSettingPasswordResetRequest")
+     *          )
+     *      ),
      *
      *     @OA\Response(
      *          response=200,
@@ -64,14 +76,15 @@ final class Controller extends BaseController
      */
     public function reset(ResetRequest $request): JsonResponse
     {
-        /** @var User $user */
-        $user = User::query()->where('email', $request->getEmail())->first();
+        $user = $request->getCurrentUser();
 
-        if (! $user) {
-            throw new DomainException('User with this email does not exists.');
+        $dto = $request->getDto();
+
+        if (! Hash::check($dto->currentPasswd, $user->password)) {
+            throw new DomainException('Current password is wrong.');
         }
 
-        $user->email = bcrypt($request->getPassword());
+        $user->password = bcrypt($dto->newPasswd);
         $user->save();
 
         return $this->response(

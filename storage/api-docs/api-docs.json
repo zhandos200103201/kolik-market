@@ -1479,20 +1479,43 @@
                         "description": "Bearer token"
                     },
                     {
-                        "name": "password",
+                        "name": "email",
+                        "in": "query",
+                        "type": "email",
+                        "required": true,
+                        "description": "User email"
+                    },
+                    {
+                        "name": "current_password",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Current password."
+                    },
+                    {
+                        "name": "new_password",
                         "in": "query",
                         "type": "string",
                         "required": true,
                         "description": "New password."
                     },
                     {
-                        "name": "password_confirmation",
+                        "name": "new_password_confirmation",
                         "in": "query",
                         "type": "string",
                         "required": true,
                         "description": "Confirm the new Password."
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProfileSettingPasswordResetRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Your password is successfully reset."
@@ -1503,6 +1526,30 @@
     },
     "components": {
         "schemas": {
+            "ProfileSettingPasswordResetRequest": {
+                "required": [
+                    "city"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "email",
+                        "example": "test@test.com"
+                    },
+                    "current_password": {
+                        "type": "string",
+                        "example": "112341234"
+                    },
+                    "new_password": {
+                        "type": "string",
+                        "example": "12341234"
+                    },
+                    "new_password_confirmation": {
+                        "type": "string",
+                        "example": "1234234"
+                    }
+                },
+                "type": "object"
+            },
             "CategoryManageRequest": {
                 "required": [
                     "name",
