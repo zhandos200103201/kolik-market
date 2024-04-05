@@ -27,7 +27,7 @@ final class Controller extends BaseController
      *          response=200,
      *          description="Models of the cars are successfully retrieved.",
      *
-     *          @OA\JsonContent(ref="#/components/schemas/CityIndexResource"),
+     *          @OA\JsonContent(ref="#/components/schemas/ModelIndexResource"),
      *     )
      * )
      */
