@@ -29,7 +29,7 @@ Route::prefix('auth')->name('auth-')->group(function (): void {
 
         Route::prefix('email')->name('email-')->group(function (): void {
             Route::post('verify/send', [AuthenticationController::class, 'send'])->name('send');
-            Route::post('verify', [AuthenticationController::class, 'verify'])->name('verify')->middleware('signed');
+            Route::get('verify', [AuthenticationController::class, 'verify'])->name('verify')->middleware('signed');
         });
     });
 });
@@ -48,7 +48,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
             });
         });
 
-        Route::prefix('products')->name('product-')->group(function (): void {
+        Route::prefix('products')->name('product-')->middleware('email.verify')->group(function (): void {
             Route::get('', [ProfileProductController::class, 'index'])->name('index');
             Route::post('', [ProfileProductController::class, 'create'])->name('create');
             Route::put('{product}', [ProfileProductController::class, 'update'])->name('update');
@@ -56,7 +56,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
         });
     });
 
-    Route::middleware('admin')->group(function (): void {
+    Route::middleware(['admin', 'email.verify'])->group(function (): void {
         Route::prefix('categories')->name('category-')->group(function (): void {
             Route::get('', [CategoryController::class, 'index'])->name('index');
             Route::post('', [CategoryController::class, 'create'])->name('create');
