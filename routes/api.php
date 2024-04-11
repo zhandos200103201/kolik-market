@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('auth')->name('auth-')->group(function (): void {
-    Route::post('register', [AuthenticationController::class, 'register']);
+    Route::post('register', [AuthenticationController::class, 'register'])->name('register');
     Route::post('login', [AuthenticationController::class, 'login'])->name('login');
     Route::get('verify', [AuthenticationController::class, 'verify'])->name('verify')->middleware('signed');
 
