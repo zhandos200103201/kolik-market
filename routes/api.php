@@ -29,7 +29,7 @@ Route::prefix('auth')->name('auth-')->group(function (): void {
         Route::post('logout', [AuthenticationController::class, 'logout'])->name('logout');
 
         Route::prefix('email')->name('email-')->group(function (): void {
-            Route::post('send', [AuthenticationController::class, 'send'])->name('send');
+            Route::post('verify/send', [AuthenticationController::class, 'send'])->name('send');
         });
     });
 });

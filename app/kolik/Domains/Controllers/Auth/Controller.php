@@ -186,16 +186,11 @@ final class Controller extends BaseController
      *     )
      * )
      */
-    public function verify(): JsonResponse
+    public function verify(Request $request): JsonResponse
     {
-        /** @var User $user */
-        $user = Auth::user();
-
-        if (! $user->email_verified_at) {
-            $user->forceFill([
-                'email_verified_at' => now(),
-            ])->save();
-        }
+        User::query()->where('email', $request->get('email'))->update([
+            'email_verified_at' => now(),
+        ]);
 
         return $this->response(
             'Email is successfully verified.'
