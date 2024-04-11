@@ -74,6 +74,7 @@ final class Controller extends BaseController
     {
         $product->views += 1;
         $product->save();
+
         return $this->response(
             'Product is successfully retrieved.',
             new IndexResource($product->load('feedbacks'))

@@ -14,7 +14,8 @@ class EmailVerifiedMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param Closure(Request): (Response) $next
+     * @param  Closure(Request): (Response)  $next
+     *
      * @throws DomainException
      */
     public function handle(Request $request, Closure $next): Response
@@ -22,7 +23,7 @@ class EmailVerifiedMiddleware
         /** @var User $user */
         $user = Auth::user();
 
-        if (null === $user->email_verified_at) {
+        if ($user->email_verified_at === null) {
             throw new DomainException('Your email does not verified.');
         }
 
