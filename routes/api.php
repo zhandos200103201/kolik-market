@@ -23,13 +23,13 @@ Route::get('/', function () {
 Route::prefix('auth')->name('auth-')->group(function (): void {
     Route::post('register', [AuthenticationController::class, 'register']);
     Route::post('login', [AuthenticationController::class, 'login'])->name('login');
+    Route::get('verify', [AuthenticationController::class, 'verify'])->name('verify')->middleware('signed');
 
     Route::middleware('auth:sanctum')->group(function (): void {
         Route::post('logout', [AuthenticationController::class, 'logout'])->name('logout');
 
         Route::prefix('email')->name('email-')->group(function (): void {
             Route::post('verify/send', [AuthenticationController::class, 'send'])->name('send');
-            Route::get('verify', [AuthenticationController::class, 'verify'])->name('verify')->middleware('signed');
         });
     });
 });
