@@ -148,11 +148,17 @@ final class Controller extends BaseController
      *          description="Email verification link is successfully send.",
      *     )
      * )
+     *
+     * @throws DomainException
      */
     public function send(): JsonResponse
     {
         /** @var User $user */
         $user = Auth::user();
+
+        if ($user->email_verified_at !== null) {
+            throw new DomainException('Your email is already verified');
+        }
 
         Mail::to($user->email)->send(new EmailVerification($user->email));
 
