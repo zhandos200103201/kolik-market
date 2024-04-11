@@ -1,8 +1,8 @@
 <x-mail::message>
-# Email verification
+# Подтверждение почты
 
 <x-mail::button :url="$url">
-Email verification
+Подтвердить
 </x-mail::button>
 
     Thanks, developer of Kolik-Market

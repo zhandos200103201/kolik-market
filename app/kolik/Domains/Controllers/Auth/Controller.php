@@ -59,8 +59,11 @@ final class Controller extends BaseController
             throw new DomainException('User does not created.');
         }
 
+        Mail::to($data->email)->send(new EmailVerification($data->email));
+
         return $this->response(
-            'User is successfully registered.'
+            'User is successfully registered.',
+            'Проверьте свою почту, и подтвердите.'
         );
     }
 
@@ -167,25 +170,6 @@ final class Controller extends BaseController
         );
     }
 
-    /**
-     * @OA\Post(
-     *     summary="User email verification.",
-     *     path="/auth/email/verify",
-     *     operationId="auth-email-verify",
-     *     tags={"auth", "email", "verify"},
-     *     description="Email verification",
-     *     parameters={
-     *      {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
-     *      {"name": "password", "in":"query", "type":"string", "required":true, "description":"New password."},
-     *      {"name": "password_confirmation", "in":"query", "type":"string", "required":true, "description":"Confirm the new Password."},
-     *     },
-     *
-     *     @OA\Response(
-     *          response=200,
-     *          description="Email is successfully verified.",
-     *     )
-     * )
-     */
     public function verify(Request $request): JsonResponse
     {
         User::query()->where('email', $request->get('email'))->update([
