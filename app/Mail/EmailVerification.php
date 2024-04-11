@@ -23,7 +23,9 @@ final class EmailVerification extends Mailable
      */
     public function __construct($email)
     {
-        $this->url = URL::temporarySignedRoute('auth-email-verify', now()->addMinute(30), ['email' => $email]);
+        $url = URL::temporarySignedRoute('auth-email-verify', now()->addMinute(30), ['email' => $email]);
+
+        $this->url = str_replace(env('APP_URL'), env('BACKEND_URL'), $url);
     }
 
     /**
