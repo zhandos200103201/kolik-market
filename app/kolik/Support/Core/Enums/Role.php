@@ -9,6 +9,6 @@ use App\kolik\Support\Core\Traits\EnumTrait;
 enum Role: string
 {
     use EnumTrait;
-    case SELLER = '1';
-    case ADMIN = '2';
+    case ADMIN = '1';
+    case SELLER = '2';
 }

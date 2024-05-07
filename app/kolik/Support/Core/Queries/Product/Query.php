@@ -16,6 +16,7 @@ final class Query implements QueryContract
     public function products(IndexRequestDTO $dto): Builder
     {
         $key = sprintf('%%%s%%', Str::lower($dto->name));
+
         return Product::query()
             ->when($dto->name, function ($query) use ($key) {
                 $query

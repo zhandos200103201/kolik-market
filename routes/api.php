@@ -34,7 +34,7 @@ Route::prefix('auth')->name('auth-')->group(function (): void {
     });
 });
 
-Route::middleware(['auth:sanctum', 'email.verify'])->group(function (): void {
+Route::middleware(['auth:sanctum'])->group(function (): void {
     Route::prefix('profiles')->name('profile-')->group(function (): void {
         Route::prefix('settings')->name('setting-')->group(function (): void {
             Route::prefix('info')->name('info-')->group(function (): void {
@@ -48,7 +48,7 @@ Route::middleware(['auth:sanctum', 'email.verify'])->group(function (): void {
             });
         });
 
-        Route::prefix('products')->name('product-')->group(function (): void {
+        Route::prefix('products')->middleware('email.verify')->name('product-')->group(function (): void {
             Route::get('', [ProfileProductController::class, 'index'])->name('index');
             Route::post('', [ProfileProductController::class, 'create'])->name('create');
             Route::put('{product}', [ProfileProductController::class, 'update'])->name('update');
