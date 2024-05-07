@@ -77,6 +77,7 @@ final class Controller extends BaseController
             'service_id' => $dto->serviceId,
             'content' => $dto->content,
             'score' => $dto->score,
+            'name' => $dto->name,
         ]);
 
         return $this->response(

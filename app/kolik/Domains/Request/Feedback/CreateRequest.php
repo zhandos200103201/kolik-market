@@ -35,6 +35,11 @@ use Illuminate\Validation\Rules\Exists;
  *           property="score",
  *           type="float",
  *           example="4.5"
+ *      ),
+ *      @OA\Property(
+ *           property="name",
+ *           type="string",
+ *           example="Zhandos"
  *      )
  * )
  */
@@ -47,6 +52,7 @@ final class CreateRequest extends FormRequest
             'service_id' => ['required_without:product_id', 'integer', new Exists(Service::class, 'service_id')],
             'content' => ['required', 'string'],
             'score' => ['required', 'numeric', 'between:0,5'],
+            'name' => ['required', 'string'],
         ];
     }
 
@@ -60,6 +66,7 @@ final class CreateRequest extends FormRequest
             $serviceId !== null ? (int) $serviceId : null,
             $this->validated('content'),
             (float) $this->validated('score'),
+            $this->validated('name'),
         );
     }
 }

@@ -33,6 +33,7 @@ final class Controller extends BaseController
      *      {"name": "email", "in":"query", "type":"string", "required":true, "description":"Email of user"},
      *      {"name": "password", "in":"query", "type":"string", "required":true, "description":"Password of user"},
      *      {"name": "password_confirmation", "in":"query", "type":"string", "required":true, "description":"Confirmed password of user"},
+     *      {"name": "phone", "in":"query", "type":"string", "required":true, "description":"Phone number of user"},
      *     },
      *
      *     @OA\Response(
@@ -55,7 +56,7 @@ final class Controller extends BaseController
             'password' => Hash::make($data->password),
             'phone' => $data->phone,
             'status' => true,
-            'role_id' => Role::SELLER
+            'role_id' => Role::SELLER,
         ]);
 
         if (! $user) {

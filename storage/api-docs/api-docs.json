@@ -46,6 +46,13 @@
                         "type": "string",
                         "required": true,
                         "description": "Confirmed password of user"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Phone number of user"
                     }
                 ],
                 "responses": {
@@ -148,46 +155,6 @@
                 "responses": {
                     "200": {
                         "description": "Email verification link is successfully send."
-                    }
-                }
-            }
-        },
-        "/auth/email/verify": {
-            "post": {
-                "tags": [
-                    "auth",
-                    "email",
-                    "verify"
-                ],
-                "summary": "User email verification.",
-                "description": "Email verification",
-                "operationId": "auth-email-verify",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "type": "string",
-                        "required": true,
-                        "description": "Bearer token"
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "type": "string",
-                        "required": true,
-                        "description": "New password."
-                    },
-                    {
-                        "name": "password_confirmation",
-                        "in": "query",
-                        "type": "string",
-                        "required": true,
-                        "description": "Confirm the new Password."
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Email is successfully verified."
                     }
                 }
             }
@@ -1627,6 +1594,10 @@
                         "type": "number",
                         "format": "float",
                         "example": "4.5"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Zhandos"
                     }
                 },
                 "type": "object"
@@ -1849,6 +1820,10 @@
                         "type": "number",
                         "format": "float",
                         "example": "4.9"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Zhandos"
                     }
                 },
                 "type": "object"
@@ -1941,6 +1916,16 @@
                     "views": {
                         "type": "integer",
                         "example": "17"
+                    },
+                    "seller_phone": {
+                        "type": "string",
+                        "example": "87788829586"
+                    },
+                    "feedbacks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/FeedbackIndexResource"
+                        }
                     }
                 },
                 "type": "object"

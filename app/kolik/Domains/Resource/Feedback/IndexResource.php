@@ -35,6 +35,11 @@ use App\Models\Feedback;
  *          property="score",
  *          type="float",
  *          example="4.9"
+ *     ),
+ *     @OA\Property(
+ *          property="name",
+ *          type="string",
+ *          example="Zhandos"
  *     )
  * )
  *
@@ -50,6 +55,7 @@ final class IndexResource extends BaseResource
             'service_id' => $this->service_id,
             'content' => $this->content,
             'score' => $this->score,
+            'name' => $this->name,
         ];
     }
 }

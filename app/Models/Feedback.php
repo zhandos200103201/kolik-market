@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property float $score
  * @property Carbon|string|null $created_at
  * @property Carbon|string|null $update_at
+ * @property string|null $name
  * @property-read Product|null $product
  * @property-read Service|null $service
  */
@@ -52,6 +53,7 @@ class Feedback extends Model
         'score',
         'product_id',
         'service_id',
+        'name',
     ];
 
     /**

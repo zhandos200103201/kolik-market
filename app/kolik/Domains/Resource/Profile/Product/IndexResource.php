@@ -56,6 +56,17 @@ use App\Models\Product;
  *          property="views",
  *          type="integer",
  *          example="17"
+ *     ),
+ *     @OA\Property(
+ *          property="seller_phone",
+ *          type="string",
+ *          example="87788829586"
+ *     ),
+ *     @OA\Property(
+ *          property="feedbacks",
+ *          type="array",
+ *
+ *          @OA\Items(ref="#/components/schemas/FeedbackIndexResource")
  *     )
  * )
  *

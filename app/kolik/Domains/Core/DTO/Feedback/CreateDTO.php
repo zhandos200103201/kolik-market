@@ -11,6 +11,7 @@ final readonly class CreateDTO
         public ?int $serviceId,
         public string $content,
         public float $score,
+        public string $name,
     ) {
     }
 }
