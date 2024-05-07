@@ -7,6 +7,7 @@ namespace App\kolik\Domains\Request\Profile\Product;
 use App\Http\Requests\Request as FormRequest;
 use App\kolik\Domains\Core\DTO\Profile\Product\CreateDTO;
 use App\Models\Category;
+use App\Models\Manufacturer;
 use App\Models\Product;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Exists;
@@ -70,6 +71,8 @@ final class ManageRequest extends FormRequest
             'price' => ['required', 'integer'],
             'is_used' => ['required', 'boolean'],
             'count' => ['nullable', 'integer'],
+            'manufacturer_id' => ['nullable', 'integer', new Exists(Manufacturer::class, 'manufacturer_id')],
+            'model_id' => ['nullable', 'integer', new Exists(Manufacturer::class, 'model_id')],
         ];
     }
 
@@ -85,6 +88,8 @@ final class ManageRequest extends FormRequest
             $count !== null ? (int) $count : null,
             (bool) $this->validated('is_used'),
             (int) $this->validated('category_id'),
+            (int) $this->validated('manufacturer_id'),
+            (int) $this->validated('model_id'),
         );
     }
 }

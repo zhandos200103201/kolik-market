@@ -53,6 +53,25 @@ final class Controller extends BaseController
         );
     }
 
+    /**
+     * @OA\Get (
+     *     summary="Get user profile product",
+     *     path="/profiles/products/{product}",
+     *     operationId="profile-product-show",
+     *     tags={"profile", "product"},
+     *     description="Get user product.",
+     *     parameters={
+     *      {"name": "Authorization", "in":"header", "type":"string", "required":true, "description":"Bearer token"},
+     *     },
+     *
+     *     @OA\Response(
+     *          response=200,
+     *          description="User products are successfully retrieved",
+     *
+     *          @OA\JsonContent(ref="#/components/schemas/ProfileProductIndexResource"),
+     *     )
+     * )
+     */
     public function show(Product $product): JsonResponse
     {
         return $this->response(
@@ -109,6 +128,8 @@ final class Controller extends BaseController
             'is_used' => $dto->isUsed,
             'category_id' => $dto->category_id,
             'user_id' => $userId,
+            'manufacturer_id' => $dto->manufacturer_id,
+            'model_id' => $dto->model_id,
         ]);
 
         return $this->response(
