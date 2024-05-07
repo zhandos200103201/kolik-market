@@ -23,6 +23,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string|null $remember_token
  * @property Carbon|string|null $created_at
  * @property Carbon|string|null $update_at
+ * @property string|null $phone
  * @property-read Role[]|null $roles
  * @property-read Service[]|null $services
  */
@@ -63,7 +64,7 @@ final class User extends Authenticatable
         'status',
         'address',
         'photo',
-        'phone_number',
+        'phone',
     ];
 
     /**

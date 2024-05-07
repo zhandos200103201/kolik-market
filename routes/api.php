@@ -34,7 +34,7 @@ Route::prefix('auth')->name('auth-')->group(function (): void {
     });
 });
 
-Route::middleware('auth:sanctum')->group(function (): void {
+Route::middleware(['auth:sanctum', 'email.verify'])->group(function (): void {
     Route::prefix('profiles')->name('profile-')->group(function (): void {
         Route::prefix('settings')->name('setting-')->group(function (): void {
             Route::prefix('info')->name('info-')->group(function (): void {

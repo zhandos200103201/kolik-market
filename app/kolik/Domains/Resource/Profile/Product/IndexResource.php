@@ -78,6 +78,7 @@ final class IndexResource extends BaseResource
             'count' => $this->count,
             'is_used' => $this->is_used,
             'views' => $this->views,
+            'seller_phone' => $this->user?->phone,
             'feedbacks' => $feedbacks !== null ? $feedbacks : null,
         ];
     }

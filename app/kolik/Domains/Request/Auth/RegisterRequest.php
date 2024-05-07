@@ -16,6 +16,7 @@ final class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:5'],
             'email' => ['required', 'email', Rule::unique(User::class, 'email')],
+            'phone' => ['required', 'string', 'min:11'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
@@ -25,6 +26,7 @@ final class RegisterRequest extends FormRequest
         return new RequestDTO(
             $this->validated('name'),
             $this->validated('email'),
+            $this->validated('phone'),
             $this->validated('password')
         );
     }
