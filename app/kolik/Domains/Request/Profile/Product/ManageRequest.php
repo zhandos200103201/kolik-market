@@ -72,6 +72,7 @@ final class ManageRequest extends FormRequest
             'price' => ['required', 'integer'],
             'is_used' => ['required', 'boolean'],
             'count' => ['nullable', 'integer'],
+            'manufacturer_id' => ['nullable', 'integer', new Exists(Manufacturer::class, 'manufacturer_id')],
             'model_id' => ['nullable', 'integer', new Exists(CarModel::class, 'model_id')],
         ];
     }
@@ -88,6 +89,7 @@ final class ManageRequest extends FormRequest
             $count !== null ? (int) $count : null,
             (bool) $this->validated('is_used'),
             (int) $this->validated('category_id'),
+            (int) $this->validated('manufacturer_id'),
             (int) $this->validated('model_id'),
         );
     }

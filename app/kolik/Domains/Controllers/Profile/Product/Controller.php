@@ -129,6 +129,7 @@ final class Controller extends BaseController
             'category_id' => $dto->category_id,
             'user_id' => $userId,
             'model_id' => $dto->model_id,
+            'manufacturer_id' => $dto->manufacturer_id,
         ]);
 
         return $this->response(
