@@ -56,7 +56,7 @@ Route::middleware(['auth:sanctum', 'email.verify'])->group(function (): void {
         });
     });
 
-    Route::middleware(['admin', 'email.verify'])->group(function (): void {
+    Route::middleware(['admin'])->group(function (): void {
         Route::prefix('categories')->name('category-')->group(function (): void {
             Route::get('', [CategoryController::class, 'index'])->name('index');
             Route::post('', [CategoryController::class, 'create'])->name('create');

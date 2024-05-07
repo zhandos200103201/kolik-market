@@ -9,6 +9,7 @@ use App\kolik\Domains\Core\DTO\Auth\Login\ResponseDTO;
 use App\kolik\Domains\Request\Auth\LoginRequest;
 use App\kolik\Domains\Request\Auth\RegisterRequest;
 use App\kolik\Domains\Resource\Auth\LoginResource;
+use App\kolik\Support\Core\Enums\Role;
 use App\kolik\Support\Core\Exceptions\DomainException;
 use App\Mail\EmailVerification;
 use App\Models\User;
@@ -54,6 +55,7 @@ final class Controller extends BaseController
             'password' => Hash::make($data->password),
             'phone' => $data->phone,
             'status' => true,
+            'role_id' => Role::SELLER
         ]);
 
         if (! $user) {

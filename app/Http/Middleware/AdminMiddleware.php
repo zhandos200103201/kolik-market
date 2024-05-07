@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\kolik\Support\Core\Enums\Role;
 use App\kolik\Support\Core\Exceptions\DomainException;
 use App\Models\User;
 use Closure;
@@ -23,7 +24,7 @@ class AdminMiddleware
         /** @var User $user */
         $user = Auth::user();
 
-        if ($user->role_id !== 2) {
+        if ($user->role_id !== (int) Role::ADMIN->value) {
             throw new DomainException('You do not have own permission.');
         }
 
