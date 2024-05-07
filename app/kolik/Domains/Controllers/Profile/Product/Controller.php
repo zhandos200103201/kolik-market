@@ -53,6 +53,14 @@ final class Controller extends BaseController
         );
     }
 
+    public function show(Product $product): JsonResponse
+    {
+        return $this->response(
+            'The user product is successfully retrieved.',
+            $product
+        );
+    }
+
     /**
      * @OA\Post(
      *     summary="Create new user product.",

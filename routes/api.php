@@ -49,6 +49,7 @@ Route::middleware(['auth:sanctum'])->group(function (): void {
         });
 
         Route::get('products', [ProfileProductController::class, 'index'])->name('index');
+        Route::get('products/{product}', [ProfileProductController::class, 'show'])->name('show');
         Route::prefix('products')->middleware('email.verify')->name('product-')->group(function (): void {
             Route::post('', [ProfileProductController::class, 'create'])->name('create');
             Route::put('{product}', [ProfileProductController::class, 'update'])->name('update');
