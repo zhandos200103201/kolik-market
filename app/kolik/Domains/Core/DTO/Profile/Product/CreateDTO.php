@@ -14,7 +14,6 @@ final readonly class CreateDTO
         public ?int $count,
         public bool $isUsed,
         public int $category_id,
-        public int $manufacturer_id,
         public int $model_id,
     ) {
     }

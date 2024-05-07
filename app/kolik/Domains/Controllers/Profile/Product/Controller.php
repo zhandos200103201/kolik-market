@@ -128,7 +128,6 @@ final class Controller extends BaseController
             'is_used' => $dto->isUsed,
             'category_id' => $dto->category_id,
             'user_id' => $userId,
-            'manufacturer_id' => $dto->manufacturer_id,
             'model_id' => $dto->model_id,
         ]);
 
