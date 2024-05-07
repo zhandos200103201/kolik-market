@@ -49,7 +49,7 @@ final class IndexRequest extends FormRequest
             'manufacturer_id' => ['nullable', 'integer', new Exists(Category::class, 'manufacturer_id')],
             'car_model_id' => ['nullable', 'integer', new Exists(Category::class, 'model_id')],
             'generation_id' => ['nullable', 'integer', new Exists(Category::class, 'generation_id')],
-            'name' => ['nullable', 'integer'],
+            'name' => ['nullable', 'string'],
         ];
     }
 
