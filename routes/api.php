@@ -48,8 +48,8 @@ Route::middleware(['auth:sanctum'])->group(function (): void {
             });
         });
 
+        Route::get('products', [ProfileProductController::class, 'index'])->name('index');
         Route::prefix('products')->middleware('email.verify')->name('product-')->group(function (): void {
-            Route::get('', [ProfileProductController::class, 'index'])->name('index');
             Route::post('', [ProfileProductController::class, 'create'])->name('create');
             Route::put('{product}', [ProfileProductController::class, 'update'])->name('update');
             Route::delete('{product}', [ProfileProductController::class, 'delete'])->name('delete');
