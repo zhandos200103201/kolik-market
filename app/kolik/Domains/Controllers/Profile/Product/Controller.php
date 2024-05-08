@@ -176,18 +176,30 @@ final class Controller extends BaseController
 
         $dto = $request->getDto();
 
-        $product->update([
-            'name' => $dto->name,
-            'description' => $dto->description,
-            'photo' => $dto->photo,
-            'price' => $dto->price,
-            'count' => $dto->count,
-            'is_used' => $dto->isUsed,
-            'category_id' => $dto->category_id,
-            'user_id' => $userId,
-            'model_id' => $dto->model_id,
-            'manufacturer_id' => $dto->manufacturer_id,
-        ]);
+        $product->name = $dto->name;
+        $product->description = $dto->description;
+        $product->photo = $dto->photo;
+        $product->price = $dto->price;
+        $product->count = $dto->count;
+        $product->is_used = $dto->isUsed;
+        $product->category_id = $dto->category_id;
+        $product->user_id = $userId;
+        $product->model_id = $dto->model_id;
+        $product->manufacturer_id = $dto->manufacturer_id;
+        $product->save();
+
+        //            ->update([
+        //            'name' => $dto->name,
+        //            'description' => $dto->description,
+        //            'photo' => $dto->photo,
+        //            'price' => $dto->price,
+        //            'count' => $dto->count,
+        //            'is_used' => $dto->isUsed,
+        //            'category_id' => $dto->category_id,
+        //            'user_id' => $userId,
+        //            'model_id' => $dto->model_id,
+        //            'manufacturer_id' => $dto->manufacturer_id,
+        //        ]);
 
         return $this->response(
             'Product is successfully updated.',

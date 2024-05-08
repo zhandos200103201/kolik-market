@@ -1305,6 +1305,38 @@
                 }
             }
         },
+        "/profiles/products/{product}": {
+            "get": {
+                "tags": [
+                    "profile",
+                    "product"
+                ],
+                "summary": "Get user profile product",
+                "description": "Get user product.",
+                "operationId": "profile-product-show",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "Bearer token"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User products are successfully retrieved",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileProductIndexResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/profiles/settings/info": {
             "get": {
                 "tags": [
