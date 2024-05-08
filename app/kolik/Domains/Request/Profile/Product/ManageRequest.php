@@ -10,7 +10,6 @@ use App\Models\CarModel;
 use App\Models\Category;
 use App\Models\Manufacturer;
 use App\Models\Product;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Exists;
 
 /**
@@ -66,7 +65,7 @@ final class ManageRequest extends FormRequest
     {
         return [
             'category_id' => ['required', 'integer', new Exists(Category::class, 'category_id')],
-            'product_name' => ['required', 'string', Rule::unique(Product::class, 'name')],
+            'product_name' => ['required', 'string'],
             'description' => ['required', 'string'],
             'photo' => ['required', 'string'],
             'price' => ['required', 'integer'],
