@@ -188,19 +188,6 @@ final class Controller extends BaseController
         $product->manufacturer_id = $dto->manufacturer_id;
         $product->save();
 
-        //            ->update([
-        //            'name' => $dto->name,
-        //            'description' => $dto->description,
-        //            'photo' => $dto->photo,
-        //            'price' => $dto->price,
-        //            'count' => $dto->count,
-        //            'is_used' => $dto->isUsed,
-        //            'category_id' => $dto->category_id,
-        //            'user_id' => $userId,
-        //            'model_id' => $dto->model_id,
-        //            'manufacturer_id' => $dto->manufacturer_id,
-        //        ]);
-
         return $this->response(
             'Product is successfully updated.',
         );
